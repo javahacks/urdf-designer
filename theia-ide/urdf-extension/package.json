@@ -1,0 +1,38 @@
+{
+  "name": "urdf-extension",
+  "keywords": [
+    "ros, urdf-designer"
+  ],
+  "version": "0.0.0",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "@theia/core": "latest",
+    "http-proxy": "^1.18.1"
+  },
+  "devDependencies": {
+    "@babylonjs/core": "^4.1.0",
+    "@babylonjs/loaders": "^4.1.0",
+    "@babylonjs/materials": "^4.1.0",
+    "@babylonjs/gui": "^4.1.0",
+    "@typefox/monaco-editor-core": "^0.14.6",
+    "@types/http-proxy": "^1.17.4",
+    "rimraf": "latest",
+    "typescript": "latest"
+  },
+  "scripts": {
+    "build": "yarn run compile",
+    "build-production": "yarn run build",
+    "clean": "rimraf lib",
+    "compile": "tsc",
+    "watch": "tsc -w"
+  },
+  "theiaExtensions": [
+    {
+      "frontend": "lib/browser/urdf-ide-frontend-module",
+      "backend": "lib/node/backend-extension"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "scripts": {
+    "clean": "lerna run clean",
+    "build": "yarn install && lerna run build",
+    "build-production": "yarn install && lerna run build-production"
+  },
+  "devDependencies": {
+    "lerna": "^3.20.2"
+  },
+  "workspaces": [
+    "urdf-extension",
+    "browser-app"
+  ],
+  "name": "urdf-lsp",
+  "dependencies": {
+    "@theia/cli": "^0.13.0",
+    "g": "^2.0.1"
+  }
+}

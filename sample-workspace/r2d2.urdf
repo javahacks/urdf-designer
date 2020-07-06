@@ -1,0 +1,98 @@
+robot "R2D2" version="1.0"  {
+    
+    materials {                                
+        color "blue" rgba=(0,0,0.8,1)
+        color "white" rgba= (1,1,1,1)
+        color "black" rgba= (0,0,0,1)        
+        texture "metal" file-name="textures/metal.jpg"                                                                                                                      
+    }
+
+    links {        
+        link "box" box length=0.08 width=0.08 height=0.08  material="white"             
+        link "base_link" cylinder length=0.6 radius=0.2 material="blue"                         
+        link "right_leg" box length=0.6 width=0.1 height=0.2   material="white" {
+            xyz=(0,0,-0.3) rpy=(0,1.57075,0)
+        }    
+        link "right_base" box length=0.4 width=0.1 height=0.1  material="white"             
+        link "left_leg"  box length=0.6 width=0.1 height=0.2 material="white" {
+             xyz=(0,0,-0.3) rpy=(0,1.57075,0) 
+        }                
+        link "left_base" box length=0.4 width=0.1 height=0.1  material="white"             
+        link "right_front_wheel" cylinder length=0.1 radius=0.035    material="black" {
+            xyz=(0,0,0) rpy=(1.57075,0,0)
+        }           
+        link "right_back_wheel" cylinder length=0.1 radius=0.035    material="black" {
+            xyz=(0,0,0) rpy=(1.57075,0,0)
+        }                    
+        link "left_front_wheel" cylinder length=0.1 radius=0.035    material="black" {
+            xyz=(0,0,0) rpy=(1.57075,0,0)
+        }
+        link "left_back_wheel" cylinder length=0.1 radius=0.035    material="black" {
+            xyz=(0,0,0) rpy=(1.57075,0,0)
+        }                   
+
+        link "gripper_pole" cylinder length=0.2 radius=0.01  material="red" {
+             xyz=(0.1,0,0) rpy=(0,1.57075,0) 
+        }                    
+        link "left_gripper" mesh file-name="meshes/l_finger.stl" scale-xyz=(0.1,0.1,0.1) material="metal"
+        link "right_gripper" mesh file-name="meshes/l_finger.stl" scale-xyz=(0.1,0.1,0.1)   material="metal"{
+            xyz=(0,0,0) rpy=(-3.1415,0,0)
+        }
+        link "left_tip" mesh file-name="meshes/l_finger_tip.stl" scale-xyz=(0.1,0.1,0.1)  material="metal" {
+            xyz=(0.09137, 0.00495, 0) rpy=(0.0, 0 ,0) 
+        }
+        link "right_tip" mesh file-name="meshes/l_finger_tip.stl" scale-xyz=(0.1,0.1,0.1)  material="metal" {
+            xyz=(0.09137, 0.00495 ,0) rpy=(-3.1415, 0 ,0)
+        }
+
+        link "head"  sphere radius=0.2   material="white" {
+            xyz=(0,0,0.3) rpy=(0,1.57075,0)
+        }                      
+
+    }
+
+
+    joints {
+        revolute "head_swivel" parent-name="base_link" child-name="head"{
+             xyz=(0,0,0.03)
+        }
+        fixed "tobox" parent-name="head" child-name="box" {
+            xyz=(0.1814,0,0.1414)
+        }
+        fixed "base_to_right_leg" parent-name="base_link" child-name="right_leg" {
+            xyz=(0 ,-0.22 ,0.25)
+        }
+        fixed "base_to_left_leg" parent-name="base_link" child-name="left_leg" {
+            xyz=(0 ,0.22 ,0.25)
+        }                         
+        fixed "right_base_joint" parent-name="right_leg" child-name="right_base" {
+            xyz=(0 ,0 ,-0.6)}
+        fixed "right_front_wheel_joint" parent-name="right_base" child-name="right_front_wheel" {
+            xyz=(0.133333333333 ,0 ,-0.085)
+        }
+        fixed "left_front_wheel_joint" parent-name="left_base" child-name="left_front_wheel" {
+            xyz=(0.133333333333 ,0 ,-0.085)
+        }                         
+        fixed "left_back_wheel_joint" parent-name="left_base" child-name="left_back_wheel" {
+             xyz=(-0.133333333333 ,0 ,-0.085)
+        }                         
+        fixed "right_back_wheel_joint" parent-name="right_base" child-name="right_back_wheel" {
+            xyz=(-0.133333333333 ,0 ,-0.085)
+        }
+        fixed "left_base_joint" parent-name="left_leg" child-name="left_base" {
+            xyz=(0 ,0 ,-0.6)
+        }                                                                          
+        revolute "gripper extension" parent-name="base_link" child-name="gripper_pole" {
+            xyz=(0.19, 0, 0.2)  axis-xyz=(1,0,0) lower-limit=-1.5707 upper-limit=1.5707
+        }                                                                      
+        fixed "left_gripper_joint" parent-name="gripper_pole" child-name="left_gripper" {
+             xyz=(0.2 ,0.01 ,0)
+        }
+        fixed "left_tip_joint" parent-name="left_gripper" child-name="left_tip"
+        fixed "right_gripper_joint" parent-name="gripper_pole" child-name="right_gripper" {
+             xyz=(0.2 ,-0.01 ,0)
+        }
+        fixed "right_tip_joint" parent-name="right_gripper" child-name="right_tip"
+    }
+}
+
