@@ -23,21 +23,11 @@ const { mode, staticCompression }  = yargs.option('mode', {
 const development = mode === 'development';
 
 const monacoEditorCorePath = development ? '/development/projects/urdf-designer/theia-ide/node_modules/@theia/monaco-editor-core/dev/vs' : '/development/projects/urdf-designer/theia-ide/node_modules/@theia/monaco-editor-core/min/vs';
-const monacoCssLanguagePath = '/development/projects/urdf-designer/theia-ide/node_modules/monaco-css/release/min';
-const monacoHtmlLanguagePath = '/development/projects/urdf-designer/theia-ide/node_modules/monaco-html/release/min';
 
 const plugins = [new CopyWebpackPlugin([
     {
         from: monacoEditorCorePath,
         to: 'vs'
-    },
-    {
-        from: monacoCssLanguagePath,
-        to: 'vs/language/css'
-    },
-    {
-        from: monacoHtmlLanguagePath,
-        to: 'vs/language/html'
     }
 ])];
 // it should go after copy-plugin in order to compress monaco as well
