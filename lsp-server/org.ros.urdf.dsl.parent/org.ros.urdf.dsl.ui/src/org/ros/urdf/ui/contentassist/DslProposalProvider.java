@@ -3,10 +3,59 @@
  */
 package org.ros.urdf.ui.contentassist;
 
+import java.util.stream.StreamSupport;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.IScopeProvider;
+import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
+import org.ros.model.urdf.UrdfPackage;
+
+import com.google.inject.Inject;
 
 /**
- * See https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#content-assist
+ * See
+ * https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#content-assist
  * on how to customize the content assistant.
  */
 public class DslProposalProvider extends AbstractDslProposalProvider {
+
+	@Inject
+	IScopeProvider scopeProvider;
+
+	
+	@Override
+	public void completeRobotType_Name(EObject model, Assignment assignment, ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor) {
+	
+		System.out.println("compklete tro");
+		super.completeRobotType_Name(model, assignment, context, acceptor);
+		
+	}
+	
+	
+	@Override
+	public void complete_Parent(EObject model, RuleCall ruleCall, ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor) {
+		acceptor.accept(createCompletionProposal("parent-name=\"\"", context));		
+	}
+
+	@Override
+	public void completeParent_LinkRef(EObject model, Assignment assignment, ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor) {
+		
+		System.out.println("dsodapo");
+		acceptor.accept(createCompletionProposal("xxxxx", context));
+		
+		IScope scope = scopeProvider.getScope(model, UrdfPackage.Literals.LINK_REF__LINK_REF);		
+		StreamSupport.stream(scope.getAllElements().spliterator(), false).forEach(e -> {			
+			acceptor.accept(createCompletionProposal(e.getQualifiedName().toString(), context));
+		});
+	}
+	
+	
+
 }

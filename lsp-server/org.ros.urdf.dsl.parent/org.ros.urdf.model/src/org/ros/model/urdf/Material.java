@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.ros.model.urdf.Material#getColor <em>Color</em>}</li>
  *   <li>{@link org.ros.model.urdf.Material#getTexture <em>Texture</em>}</li>
  *   <li>{@link org.ros.model.urdf.Material#getName <em>Name</em>}</li>
+ *   <li>{@link org.ros.model.urdf.Material#getMaterialRef <em>Material Ref</em>}</li>
  * </ul>
  *
  * @see org.ros.model.urdf.UrdfPackage#getMaterial()
@@ -92,4 +93,19 @@ public interface Material extends EObject {
 	 */
 	void setName(String value);
 
+	/**
+	 * @model transient="true"
+	 */
+	public MaterialGlobal getMaterialRef();
+
+	/**
+	 * Sets the value of the '{@link org.ros.model.urdf.Material#getMaterialRef <em>Material Ref</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Material Ref</em>' reference.
+	 * @see #getMaterialRef()
+	 * @generated
+	 */
+	void setMaterialRef(MaterialGlobal value);
+	
 } // Material

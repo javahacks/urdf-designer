@@ -212,6 +212,10 @@ public class UrdfAdapterFactory extends AdapterFactoryImpl {
 				return createVector4Adapter();
 			}
 			@Override
+			public Adapter caseLinkRef(LinkRef object) {
+				return createLinkRefAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -732,6 +736,20 @@ public class UrdfAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createVector4Adapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.ros.model.urdf.LinkRef <em>Link Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ros.model.urdf.LinkRef
+	 * @generated
+	 */
+	public Adapter createLinkRefAdapter() {
 		return null;
 	}
 

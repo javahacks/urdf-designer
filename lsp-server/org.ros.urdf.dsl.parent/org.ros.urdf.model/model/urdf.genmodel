@@ -28,9 +28,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute urdf.ecore#//Calibration/rising"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute urdf.ecore#//Calibration/falling"/>
     </genClasses>
-    <genClasses ecoreClass="urdf.ecore#//Child">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute urdf.ecore#//Child/link"/>
-    </genClasses>
+    <genClasses ecoreClass="urdf.ecore#//Child"/>
     <genClasses ecoreClass="urdf.ecore#//Collision">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference urdf.ecore#//Collision/origin"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference urdf.ecore#//Collision/geometry"/>
@@ -121,6 +119,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference urdf.ecore#//Material/color"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference urdf.ecore#//Material/texture"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute urdf.ecore#//Material/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference urdf.ecore#//Material/materialRef"/>
     </genClasses>
     <genClasses ecoreClass="urdf.ecore#//MaterialGlobal">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference urdf.ecore#//MaterialGlobal/color"/>
@@ -140,9 +139,7 @@
     <genClasses ecoreClass="urdf.ecore#//Name">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute urdf.ecore#//Name/name"/>
     </genClasses>
-    <genClasses ecoreClass="urdf.ecore#//Parent">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute urdf.ecore#//Parent/link"/>
-    </genClasses>
+    <genClasses ecoreClass="urdf.ecore#//Parent"/>
     <genClasses ecoreClass="urdf.ecore#//PassiveJointTransmission">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute urdf.ecore#//PassiveJointTransmission/name"/>
     </genClasses>
@@ -207,6 +204,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute urdf.ecore#//Vector4/b"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute urdf.ecore#//Vector4/c"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute urdf.ecore#//Vector4/d"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="urdf.ecore#//LinkRef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference urdf.ecore#//LinkRef/linkRef"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute urdf.ecore#//LinkRef/link"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

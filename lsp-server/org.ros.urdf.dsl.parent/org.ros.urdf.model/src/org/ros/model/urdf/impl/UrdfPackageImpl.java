@@ -29,6 +29,7 @@ import org.ros.model.urdf.Inertial;
 import org.ros.model.urdf.Joint;
 import org.ros.model.urdf.Limit;
 import org.ros.model.urdf.Link;
+import org.ros.model.urdf.LinkRef;
 import org.ros.model.urdf.Mass;
 import org.ros.model.urdf.Material;
 import org.ros.model.urdf.MaterialGlobal;
@@ -311,6 +312,13 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 	private EClass vector4EClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass linkRefEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -499,15 +507,6 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 	 */
 	public EClass getChild() {
 		return childEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getChild_Link() {
-		return (EAttribute)childEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1208,6 +1207,15 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getMaterial_MaterialRef() {
+		return (EReference)materialEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMaterialGlobal() {
 		return materialGlobalEClass;
 	}
@@ -1336,15 +1344,6 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 	 */
 	public EClass getParent() {
 		return parentEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getParent_Link() {
-		return (EAttribute)parentEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1838,6 +1837,33 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getLinkRef() {
+		return linkRefEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLinkRef_LinkRef() {
+		return (EReference)linkRefEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLinkRef_Link() {
+		return (EAttribute)linkRefEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public UrdfFactory getUrdfFactory() {
 		return (UrdfFactory)getEFactoryInstance();
 	}
@@ -1879,7 +1905,6 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 		createEAttribute(calibrationEClass, CALIBRATION__FALLING);
 
 		childEClass = createEClass(CHILD);
-		createEAttribute(childEClass, CHILD__LINK);
 
 		collisionEClass = createEClass(COLLISION);
 		createEReference(collisionEClass, COLLISION__ORIGIN);
@@ -1971,6 +1996,7 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 		createEReference(materialEClass, MATERIAL__COLOR);
 		createEReference(materialEClass, MATERIAL__TEXTURE);
 		createEAttribute(materialEClass, MATERIAL__NAME);
+		createEReference(materialEClass, MATERIAL__MATERIAL_REF);
 
 		materialGlobalEClass = createEClass(MATERIAL_GLOBAL);
 		createEReference(materialGlobalEClass, MATERIAL_GLOBAL__COLOR);
@@ -1991,7 +2017,6 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 		createEAttribute(nameEClass, NAME__NAME);
 
 		parentEClass = createEClass(PARENT);
-		createEAttribute(parentEClass, PARENT__LINK);
 
 		passiveJointTransmissionEClass = createEClass(PASSIVE_JOINT_TRANSMISSION);
 		createEAttribute(passiveJointTransmissionEClass, PASSIVE_JOINT_TRANSMISSION__NAME);
@@ -2058,6 +2083,10 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 		createEAttribute(vector4EClass, VECTOR4__B);
 		createEAttribute(vector4EClass, VECTOR4__C);
 		createEAttribute(vector4EClass, VECTOR4__D);
+
+		linkRefEClass = createEClass(LINK_REF);
+		createEReference(linkRefEClass, LINK_REF__LINK_REF);
+		createEAttribute(linkRefEClass, LINK_REF__LINK);
 	}
 
 	/**
@@ -2092,6 +2121,8 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		childEClass.getESuperTypes().add(this.getLinkRef());
+		parentEClass.getESuperTypes().add(this.getLinkRef());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(actuatorTransmissionEClass, ActuatorTransmission.class, "ActuatorTransmission", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2112,7 +2143,6 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 		initEAttribute(getCalibration_Falling(), theXMLTypePackage.getDouble(), "falling", null, 0, 1, Calibration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(childEClass, Child.class, "Child", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getChild_Link(), theXMLTypePackage.getString(), "link", null, 1, 1, Child.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(collisionEClass, Collision.class, "Collision", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCollision_Origin(), this.getPose(), null, "origin", null, 0, 1, Collision.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2194,7 +2224,7 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 		initEReference(getLink_Inertial(), this.getInertial(), null, "inertial", null, 0, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLink_Visual(), this.getVisual(), null, "visual", null, 0, -1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLink_Collision(), this.getCollision(), null, "collision", null, 0, -1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLink_Name(), theXMLTypePackage.getString(), "name", null, 1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLink_Name(), theXMLTypePackage.getString(), "name", null, 1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLink_Type(), theXMLTypePackage.getString(), "type", null, 0, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(massEClass, Mass.class, "Mass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2204,6 +2234,7 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 		initEReference(getMaterial_Color(), this.getColor(), null, "color", null, 0, 1, Material.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMaterial_Texture(), this.getTexture(), null, "texture", null, 0, 1, Material.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMaterial_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, Material.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMaterial_MaterialRef(), this.getMaterialGlobal(), null, "materialRef", null, 0, 1, Material.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(materialGlobalEClass, MaterialGlobal.class, "MaterialGlobal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMaterialGlobal_Color(), this.getColor(), null, "color", null, 0, 1, MaterialGlobal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2224,7 +2255,6 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 		initEAttribute(getName_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, Name.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(parentEClass, Parent.class, "Parent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getParent_Link(), theXMLTypePackage.getString(), "link", null, 1, 1, Parent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(passiveJointTransmissionEClass, PassiveJointTransmission.class, "PassiveJointTransmission", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPassiveJointTransmission_Name(), theXMLTypePackage.getString(), "name", null, 1, 1, PassiveJointTransmission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2291,6 +2321,10 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 		initEAttribute(getVector4_B(), ecorePackage.getEDouble(), "b", null, 0, 1, Vector4.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVector4_C(), ecorePackage.getEDouble(), "c", null, 0, 1, Vector4.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVector4_D(), ecorePackage.getEDouble(), "d", null, 0, 1, Vector4.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(linkRefEClass, LinkRef.class, "LinkRef", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLinkRef_LinkRef(), this.getLink(), null, "linkRef", null, 0, 1, LinkRef.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLinkRef_Link(), theXMLTypePackage.getString(), "link", null, 1, 1, LinkRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -2391,13 +2425,6 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 		   new String[] {
 			   "name", "child",
 			   "kind", "empty"
-		   });
-		addAnnotation
-		  (getChild_Link(),
-		   source,
-		   new String[] {
-			   "kind", "attribute",
-			   "name", "link"
 		   });
 		addAnnotation
 		  (collisionEClass,
@@ -3057,13 +3084,6 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 			   "kind", "empty"
 		   });
 		addAnnotation
-		  (getParent_Link(),
-		   source,
-		   new String[] {
-			   "kind", "attribute",
-			   "name", "link"
-		   });
-		addAnnotation
 		  (passiveJointTransmissionEClass,
 		   source,
 		   new String[] {
@@ -3394,6 +3414,13 @@ public class UrdfPackageImpl extends EPackageImpl implements UrdfPackage {
 			   "kind", "element",
 			   "name", "material",
 			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (getLinkRef_Link(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "link"
 		   });
 	}
 

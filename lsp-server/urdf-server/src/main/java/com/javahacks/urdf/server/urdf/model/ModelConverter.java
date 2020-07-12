@@ -45,6 +45,10 @@ public class ModelConverter {
     }
 
     private void handleVisual(final RobotDescription robotDescription, final Link link, final Visual visual) {
+        if (link.getName() == null) {
+            return;
+        }
+
         if (visual.getGeometry().getBox() != null) {
             final BoxMesh mesh = createBoxMesh(link, visual);
             robotDescription.getBoxes().add(mesh);
@@ -105,7 +109,7 @@ public class ModelConverter {
 
     private void fillJoints(final EList<Joint> joints, final RobotDescription robotDescription) {
         for (final Joint joint : joints) {
-            if (joint.getParent() != null && joint.getChild() != null) {
+            if (validateJoint(joint)) {
                 final String parentId = joint.getParent().getLink();
                 final String childId = joint.getChild().getLink();
                 final JointInfo jointInfo = new JointInfo(joint.getName(), joint.getType(), parentId, childId);
@@ -117,18 +121,23 @@ public class ModelConverter {
         }
     }
 
+    private boolean validateJoint(final Joint joint) {
+        boolean parentOk = joint.getParent() != null && joint.getParent().getLink() != null;
+        boolean childOk = joint.getChild() != null && joint.getChild().getLink() != null;
+        return parentOk && childOk && joint.getName() != null;
+    }
+
     private void fillJointProperties(final Joint joint, final JointInfo jointInfo) {
-        if(joint.getAxis()!=null){
+        if (joint.getAxis() != null && joint.getAxis().getXyzVector() != null) {
             jointInfo.setAxeX(joint.getAxis().getXyzVector().getA());
             jointInfo.setAxeY(joint.getAxis().getXyzVector().getC()); //fix coordinate system by swapping y and z
             jointInfo.setAxeZ(joint.getAxis().getXyzVector().getB());
         }
-        if(joint.getLimit()!=null){
+        if (joint.getLimit() != null) {
             jointInfo.setLowerLimit(joint.getLimit().getLower());
             jointInfo.setUpperLimit(joint.getLimit().getUpper());
         }
     }
-
 
     private void fillBaseProperties(final Pose pose, final Location location) {
         if (pose != null && pose.getXyzVector() != null) {
@@ -136,7 +145,7 @@ public class ModelConverter {
             location.setY(pose.getXyzVector().getC()); //fix coordinate system by swapping y and z
             location.setZ(pose.getXyzVector().getB());
         }
-        if (pose != null && pose.getRpy() != null) {
+        if (pose != null && pose.getRpyVector() != null) {
             location.setRoll(pose.getRpyVector().getA());
             location.setPitch(pose.getRpyVector().getC()); //fix coordinate system by swapping y and z
             location.setYaw(pose.getRpyVector().getB());
@@ -151,7 +160,7 @@ public class ModelConverter {
 
     private void fillMaterials(final RobotType model, final RobotDescription robotDescription) {
         for (final MaterialGlobal materialGlobal : model.getMaterial()) {
-            if (materialGlobal.getColor() != null) {
+            if (materialGlobal.getColor() != null && materialGlobal.getName() != null) {
                 final float[] colors = stringToFloatArray(materialGlobal.getColor().getRgba(), 4);
                 final ColorMaterial material = new ColorMaterial(materialGlobal.getName(), colors[0], colors[1], colors[2], colors[3]);
                 robotDescription.getColors().add(material);
@@ -173,7 +182,6 @@ public class ModelConverter {
             textureMaterial.setFileName(ASSETS_BASE_URL + absolutePath.toString());
         }
     }
-
 
     private float[] stringToFloatArray(final String s, final int size) {
         final float[] result = new float[size];
@@ -200,9 +208,7 @@ public class ModelConverter {
             existingResource.unload();
             return existingResource;
         }
-
         return resourceSet.createResource(modelUri);
     }
-
 
 }

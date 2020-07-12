@@ -4,17 +4,73 @@
 package org.ros.urdf.formatting2
 
 import com.google.inject.Inject
+import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.formatting2.AbstractFormatter2
-import org.ros.urdf.services.DslGrammarAccess
 import org.eclipse.xtext.formatting2.IFormattableDocument
+import org.ros.model.urdf.Joint
+import org.ros.model.urdf.Link
+import org.ros.model.urdf.MaterialGlobal
+import org.ros.model.urdf.RobotType
+import org.ros.model.urdf.UrdfPackage
+import org.ros.urdf.services.DslGrammarAccess
+
+import static org.ros.model.urdf.UrdfPackage.Literals.*
+import org.ros.model.urdf.Visual
+import org.ros.model.urdf.Box
+import org.ros.model.urdf.Geometry
 
 class DslFormatter extends AbstractFormatter2 {
-	
+
 	@Inject extension DslGrammarAccess
-	
-	override format(Object obj, IFormattableDocument document) {
-		 
+
+	def dispatch void format(RobotType robot, extension IFormattableDocument doc) {
+		robot.regionFor.feature(ROBOT_TYPE__NAME).surround[oneSpace]
+		robot.regionFor.feature(ROBOT_TYPE__VERSION).surround[oneSpace]
+
+		for (keywordPair : robotTypeAccess.findKeywordPairs("{", "}")) {
+			val left = robot.regionFor.keyword(keywordPair.first)
+			val right = robot.regionFor.keyword(keywordPair.second)
+			left?.append[setNewLines(2,2,3)]
+			right?.prepend[newLine]
+			interior(left, right)[indent]
+		}
+
+		for (feature : robot.material) {
+			feature.format
+			feature.append[newLine]
+		}
+
+		for (feature : robot.link) {
+			feature.format
+			feature.append[newLine]
+		}
+		for (feature : robot.joint) {
+			feature.format
+			feature.append[newLine]
+		}
+
 	}
-	
- 
+
+	def dispatch void format(MaterialGlobal material, extension IFormattableDocument doc) {
+		material.regionFor.feature(UrdfPackage.Literals.MATERIAL_GLOBAL__NAME).surround[oneSpace]
+	}
+
+	def dispatch void format(Link link, extension IFormattableDocument doc) {
+		link.regionFor.feature(UrdfPackage.Literals.LINK__NAME).surround[oneSpace]
+		for (visual:  link.visual) {									
+			visual.format			
+		}		
+	}
+
+	def dispatch void format(Joint joint, extension IFormattableDocument doc) {
+		joint.regionFor.feature(UrdfPackage.Literals.JOINT__NAME).surround[oneSpace]		
+	}
+
+	def dispatch void format(Visual visual, extension IFormattableDocument doc) {		
+		val left = visual.regionFor.keyword("{")
+		val right = visual.regionFor.keyword("}")		
+		left?.append[newLine]
+		interior(left, right)[indent]		
+	}
+
 }

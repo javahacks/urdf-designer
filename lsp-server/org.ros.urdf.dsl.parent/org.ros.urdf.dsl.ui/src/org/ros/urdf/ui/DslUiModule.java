@@ -13,4 +13,5 @@ public class DslUiModule extends AbstractDslUiModule {
 	public DslUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
 	}
+		
 }

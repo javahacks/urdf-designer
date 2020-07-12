@@ -93,6 +93,7 @@ public class UrdfSwitch<T> extends Switch<T> {
 			case UrdfPackage.CHILD: {
 				Child child = (Child)theEObject;
 				T result = caseChild(child);
+				if (result == null) result = caseLinkRef(child);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -207,6 +208,7 @@ public class UrdfSwitch<T> extends Switch<T> {
 			case UrdfPackage.PARENT: {
 				Parent parent = (Parent)theEObject;
 				T result = caseParent(parent);
+				if (result == null) result = caseLinkRef(parent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -279,6 +281,12 @@ public class UrdfSwitch<T> extends Switch<T> {
 			case UrdfPackage.VECTOR4: {
 				Vector4 vector4 = (Vector4)theEObject;
 				T result = caseVector4(vector4);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case UrdfPackage.LINK_REF: {
+				LinkRef linkRef = (LinkRef)theEObject;
+				T result = caseLinkRef(linkRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -823,6 +831,21 @@ public class UrdfSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseVector4(Vector4 object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Link Ref</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Link Ref</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLinkRef(LinkRef object) {
 		return null;
 	}
 

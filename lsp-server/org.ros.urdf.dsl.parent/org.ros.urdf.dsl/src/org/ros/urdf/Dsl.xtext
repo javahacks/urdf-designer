@@ -4,40 +4,37 @@ import "http://www.ros.org/model/urdf"
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 RobotType returns RobotType:
-	'robot' name=STRING ('version' '=' version=STRING)? '{'
+	'robot' name=ID ('version' '=' version=STRING)? '{'
 	('materials' '{' material+=(TextureGlobal | ColorGlobal)* '}')?
-	('links' '{' link+=(Link)* '}')?
-	('joints' '{' joint+=(FixedJoint | RevoluteJoint|PrismaticJoint)* '}')?
+	('links' '{' link+=(BoxLink|SphereLink|MeshLink|CylinderLink)* '}')?
+	('joints' '{' joint+=(FixedJoint | RevoluteJoint|ContinousJoint|PrismaticJoint)* '}')?
 	'}';
 
-Link returns Link:
-	'link'  name=STRING visual+=Visual;
-
 FixedJoint returns Joint:
-	{Joint} type="fixed" name=STRING parent=Parent child=Child ('{'
+	{Joint} type="fixed" name=ID parent=Parent child=Child ('{'
 		origin=Origin?			
 	'}')?;
 
 RevoluteJoint returns Joint:
-	{Joint} type="revolute" name=STRING parent=Parent child=Child ('{'
+	{Joint} type="revolute" name=ID parent=Parent child=Child ('{'
 		origin=Origin?
 		axis= Axis ?
 		limit=Limit?
 	'}')?;
 
+ContinousJoint returns Joint:
+	{Joint} type="continous" name=ID parent=Parent child=Child ('{'
+		origin=Origin?
+		axis= Axis ?		
+	'}')?;	
+
 PrismaticJoint returns Joint:
-	{Joint} type="prismatic" name=STRING parent=Parent child=Child ('{'
+	{Joint} type="prismatic" name=ID parent=Parent child=Child ('{'
 		origin=Origin?
 		axis= Axis ?
 		limit=Limit?
 	'}');	
 
-Visual:			 
-	geometry=(BoxGeometry | CylinderGeometry | SphereGeometry | MeshGeometry)		
-	material=InlineMaterial? 
-	('{' origin=Origin  '}')?
-;
-	
 Origin returns Pose:	
 	'xyz' '=' xyzVector=Vector3 ('rpy' '=' rpyVector=Vector3)?;
 	
@@ -52,7 +49,38 @@ Limit returns Limit:
 ;
 
 InlineMaterial returns Material:
-	'material' '=' name=STRING;
+	'material' '=' materialRef=[MaterialGlobal];
+
+BoxLink returns Link:
+	'box'  name=ID visual+=BoxVisual;
+SphereLink returns Link:
+	'sphere'  name=ID visual+=SphereVisual;	
+MeshLink returns Link:
+	'mesh'  name=ID visual+=MeshVisual;	
+CylinderLink returns Link:
+	'cylinder'  name=ID visual+=CylinderVisual;	
+
+BoxVisual returns Visual:			 
+	geometry=BoxGeometry		
+	material=InlineMaterial? 
+	('{' origin=Origin  '}')?
+;
+SphereVisual returns Visual:			 
+	geometry=SphereGeometry		
+	material=InlineMaterial? 
+	('{' origin=Origin  '}')?
+;
+CylinderVisual returns Visual:			 
+	geometry=CylinderGeometry		
+	material=InlineMaterial? 
+	('{' origin=Origin  '}')?
+;
+
+MeshVisual returns Visual:			 
+	geometry=MeshGeometry		
+	material=InlineMaterial? 
+	('{' origin=Origin  '}')?
+;
 
 BoxGeometry returns Geometry:
 	box=Box;
@@ -62,42 +90,43 @@ CylinderGeometry returns Geometry:
 
 SphereGeometry returns Geometry:
 	sphere=Sphere;
+	
 MeshGeometry returns Geometry:
 	mesh=Mesh;	
 
 Box returns Box:
-	'box'  dimension=BoxDimension;
+	dimension=BoxDimension;
 
 BoxDimension returns Vector3:
 	'length' '=' a=DOUBLE 'width' '=' b=DOUBLE 'height' '=' c=DOUBLE;
 
 Cylinder returns Cylinder:
-	'cylinder' 'length' '=' length=DOUBLE 'radius' '=' radius=DOUBLE;
+	'length' '=' length=DOUBLE 'radius' '=' radius=DOUBLE;
 
 Sphere returns Sphere:
-	'sphere' 'radius' '=' radius=DOUBLE;
+	'radius' '=' radius=DOUBLE;
 
 Mesh returns Mesh:
-	'mesh'  'file-name' '=' filename=STRING ('scale-xyz' '=' scaleVector=Vector3)? 
+	'file-name' '=' filename=STRING ('scale-xyz' '=' scaleVector=Vector3)? 
 ;
 
 TextureGlobal returns MaterialGlobal:
-	'texture' name=STRING texture=Texture;
+	'texture' name=ID texture=Texture;
 
 Texture returns Texture:
 	'file-name' '=' filename=STRING;
 
 ColorGlobal returns MaterialGlobal:
-	'color' name=STRING color=Color;
+	'color' name=ID color=Color;
 
 Color returns Color:
 	'rgba' '=' color=Vector4;
 
 Parent:
-	'parent-name' '=' link=STRING;
+	'parent-name' '=' linkRef=[Link];
 
 Child:
-	'child-name' '=' link=STRING;
+	'child-name' '=' linkRef=[Link];
 
 Vector3:
 	'(' a=DOUBLE ',' b=DOUBLE ',' c=DOUBLE ')';
@@ -108,4 +137,5 @@ Vector4:
 DOUBLE returns ecore::EDouble:
 	'-'? INT ('.' INT)?;
 
-
+@Override	
+terminal ID: '^'?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'-'|'0'..'9')*;	

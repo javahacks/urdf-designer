@@ -260,33 +260,6 @@ public interface UrdfPackage extends EPackage {
 	int CHILD = 4;
 
 	/**
-	 * The feature id for the '<em><b>Link</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CHILD__LINK = 0;
-
-	/**
-	 * The number of structural features of the '<em>Child</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CHILD_FEATURE_COUNT = 1;
-
-	/**
-	 * The number of operations of the '<em>Child</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CHILD_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link org.ros.model.urdf.impl.CollisionImpl <em>Collision</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -295,6 +268,259 @@ public interface UrdfPackage extends EPackage {
 	 * @generated
 	 */
 	int COLLISION = 5;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.ColorImpl <em>Color</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.ColorImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getColor()
+	 * @generated
+	 */
+	int COLOR = 6;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.CylinderImpl <em>Cylinder</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.CylinderImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getCylinder()
+	 * @generated
+	 */
+	int CYLINDER = 7;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.DocumentRootImpl <em>Document Root</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.DocumentRootImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getDocumentRoot()
+	 * @generated
+	 */
+	int DOCUMENT_ROOT = 8;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.DynamicsImpl <em>Dynamics</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.DynamicsImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getDynamics()
+	 * @generated
+	 */
+	int DYNAMICS = 9;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.GapJointTransmissionImpl <em>Gap Joint Transmission</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.GapJointTransmissionImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getGapJointTransmission()
+	 * @generated
+	 */
+	int GAP_JOINT_TRANSMISSION = 10;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.GeometryImpl <em>Geometry</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.GeometryImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getGeometry()
+	 * @generated
+	 */
+	int GEOMETRY = 11;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.InertiaImpl <em>Inertia</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.InertiaImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getInertia()
+	 * @generated
+	 */
+	int INERTIA = 12;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.InertialImpl <em>Inertial</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.InertialImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getInertial()
+	 * @generated
+	 */
+	int INERTIAL = 13;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.JointImpl <em>Joint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.JointImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getJoint()
+	 * @generated
+	 */
+	int JOINT = 14;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.LimitImpl <em>Limit</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.LimitImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getLimit()
+	 * @generated
+	 */
+	int LIMIT = 15;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.LinkImpl <em>Link</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.LinkImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getLink()
+	 * @generated
+	 */
+	int LINK = 16;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.MassImpl <em>Mass</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.MassImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getMass()
+	 * @generated
+	 */
+	int MASS = 17;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.MaterialImpl <em>Material</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.MaterialImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getMaterial()
+	 * @generated
+	 */
+	int MATERIAL = 18;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.MaterialGlobalImpl <em>Material Global</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.MaterialGlobalImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getMaterialGlobal()
+	 * @generated
+	 */
+	int MATERIAL_GLOBAL = 19;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.MeshImpl <em>Mesh</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.MeshImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getMesh()
+	 * @generated
+	 */
+	int MESH = 20;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.MimicImpl <em>Mimic</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.MimicImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getMimic()
+	 * @generated
+	 */
+	int MIMIC = 21;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.NameImpl <em>Name</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.NameImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getName_()
+	 * @generated
+	 */
+	int NAME = 22;
+
+	/**
+	 * The meta object id for the '{@link org.ros.model.urdf.impl.LinkRefImpl <em>Link Ref</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ros.model.urdf.impl.LinkRefImpl
+	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getLinkRef()
+	 * @generated
+	 */
+	int LINK_REF = 36;
+
+	/**
+	 * The feature id for the '<em><b>Link Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_REF__LINK_REF = 0;
+
+	/**
+	 * The feature id for the '<em><b>Link</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_REF__LINK = 1;
+
+	/**
+	 * The number of structural features of the '<em>Link Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_REF_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Link Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_REF_OPERATION_COUNT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Link Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD__LINK_REF = LINK_REF__LINK_REF;
+		
+
+	/**
+	 * The feature id for the '<em><b>Link</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD__LINK = LINK_REF__LINK;
+
+	/**
+	 * The number of structural features of the '<em>Child</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_FEATURE_COUNT = LINK_REF_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Child</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_OPERATION_COUNT = LINK_REF_OPERATION_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Origin</b></em>' containment reference.
@@ -351,16 +577,6 @@ public interface UrdfPackage extends EPackage {
 	int COLLISION_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.ColorImpl <em>Color</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.ColorImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getColor()
-	 * @generated
-	 */
-	int COLOR = 6;
-
-	/**
 	 * The feature id for the '<em><b>Rgba</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -397,16 +613,6 @@ public interface UrdfPackage extends EPackage {
 	int COLOR_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.CylinderImpl <em>Cylinder</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.CylinderImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getCylinder()
-	 * @generated
-	 */
-	int CYLINDER = 7;
-
-	/**
 	 * The feature id for the '<em><b>Radius</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -441,16 +647,6 @@ public interface UrdfPackage extends EPackage {
 	 * @ordered
 	 */
 	int CYLINDER_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.DocumentRootImpl <em>Document Root</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.DocumentRootImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getDocumentRoot()
-	 * @generated
-	 */
-	int DOCUMENT_ROOT = 8;
 
 	/**
 	 * The feature id for the '<em><b>Mixed</b></em>' attribute list.
@@ -507,16 +703,6 @@ public interface UrdfPackage extends EPackage {
 	int DOCUMENT_ROOT_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.DynamicsImpl <em>Dynamics</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.DynamicsImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getDynamics()
-	 * @generated
-	 */
-	int DYNAMICS = 9;
-
-	/**
 	 * The feature id for the '<em><b>Damping</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -551,16 +737,6 @@ public interface UrdfPackage extends EPackage {
 	 * @ordered
 	 */
 	int DYNAMICS_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.GapJointTransmissionImpl <em>Gap Joint Transmission</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.GapJointTransmissionImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getGapJointTransmission()
-	 * @generated
-	 */
-	int GAP_JOINT_TRANSMISSION = 10;
 
 	/**
 	 * The feature id for the '<em><b>L0</b></em>' attribute.
@@ -689,16 +865,6 @@ public interface UrdfPackage extends EPackage {
 	int GAP_JOINT_TRANSMISSION_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.GeometryImpl <em>Geometry</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.GeometryImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getGeometry()
-	 * @generated
-	 */
-	int GEOMETRY = 11;
-
-	/**
 	 * The feature id for the '<em><b>Box</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -751,16 +917,6 @@ public interface UrdfPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEOMETRY_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.InertiaImpl <em>Inertia</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.InertiaImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getInertia()
-	 * @generated
-	 */
-	int INERTIA = 12;
 
 	/**
 	 * The feature id for the '<em><b>Ixx</b></em>' attribute.
@@ -835,16 +991,6 @@ public interface UrdfPackage extends EPackage {
 	int INERTIA_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.InertialImpl <em>Inertial</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.InertialImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getInertial()
-	 * @generated
-	 */
-	int INERTIAL = 13;
-
-	/**
 	 * The feature id for the '<em><b>Origin</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -888,16 +1034,6 @@ public interface UrdfPackage extends EPackage {
 	 * @ordered
 	 */
 	int INERTIAL_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.JointImpl <em>Joint</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.JointImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getJoint()
-	 * @generated
-	 */
-	int JOINT = 14;
 
 	/**
 	 * The feature id for the '<em><b>Origin</b></em>' containment reference.
@@ -1017,16 +1153,6 @@ public interface UrdfPackage extends EPackage {
 	int JOINT_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.LimitImpl <em>Limit</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.LimitImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getLimit()
-	 * @generated
-	 */
-	int LIMIT = 15;
-
-	/**
 	 * The feature id for the '<em><b>Lower</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1079,16 +1205,6 @@ public interface UrdfPackage extends EPackage {
 	 * @ordered
 	 */
 	int LIMIT_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.LinkImpl <em>Link</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.LinkImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getLink()
-	 * @generated
-	 */
-	int LINK = 16;
 
 	/**
 	 * The feature id for the '<em><b>Inertial</b></em>' containment reference.
@@ -1154,16 +1270,6 @@ public interface UrdfPackage extends EPackage {
 	int LINK_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.MassImpl <em>Mass</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.MassImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getMass()
-	 * @generated
-	 */
-	int MASS = 17;
-
-	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1189,16 +1295,6 @@ public interface UrdfPackage extends EPackage {
 	 * @ordered
 	 */
 	int MASS_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.MaterialImpl <em>Material</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.MaterialImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getMaterial()
-	 * @generated
-	 */
-	int MATERIAL = 18;
 
 	/**
 	 * The feature id for the '<em><b>Color</b></em>' containment reference.
@@ -1228,13 +1324,22 @@ public interface UrdfPackage extends EPackage {
 	int MATERIAL__NAME = 2;
 
 	/**
+	 * The feature id for the '<em><b>Material Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MATERIAL__MATERIAL_REF = 3;
+
+	/**
 	 * The number of structural features of the '<em>Material</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MATERIAL_FEATURE_COUNT = 3;
+	int MATERIAL_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Material</em>' class.
@@ -1244,16 +1349,6 @@ public interface UrdfPackage extends EPackage {
 	 * @ordered
 	 */
 	int MATERIAL_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.MaterialGlobalImpl <em>Material Global</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.MaterialGlobalImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getMaterialGlobal()
-	 * @generated
-	 */
-	int MATERIAL_GLOBAL = 19;
 
 	/**
 	 * The feature id for the '<em><b>Color</b></em>' containment reference.
@@ -1301,16 +1396,6 @@ public interface UrdfPackage extends EPackage {
 	int MATERIAL_GLOBAL_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.MeshImpl <em>Mesh</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.MeshImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getMesh()
-	 * @generated
-	 */
-	int MESH = 20;
-
-	/**
 	 * The feature id for the '<em><b>Filename</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1354,16 +1439,6 @@ public interface UrdfPackage extends EPackage {
 	 * @ordered
 	 */
 	int MESH_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.MimicImpl <em>Mimic</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.MimicImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getMimic()
-	 * @generated
-	 */
-	int MIMIC = 21;
 
 	/**
 	 * The feature id for the '<em><b>Joint</b></em>' attribute.
@@ -1411,16 +1486,6 @@ public interface UrdfPackage extends EPackage {
 	int MIMIC_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.ros.model.urdf.impl.NameImpl <em>Name</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ros.model.urdf.impl.NameImpl
-	 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getName_()
-	 * @generated
-	 */
-	int NAME = 22;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1458,13 +1523,22 @@ public interface UrdfPackage extends EPackage {
 	int PARENT = 23;
 
 	/**
+	 * The feature id for the '<em><b>Link Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARENT__LINK_REF = LINK_REF__LINK_REF;
+
+	/**
 	 * The feature id for the '<em><b>Link</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARENT__LINK = 0;
+	int PARENT__LINK = LINK_REF__LINK;
 
 	/**
 	 * The number of structural features of the '<em>Parent</em>' class.
@@ -1473,7 +1547,7 @@ public interface UrdfPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PARENT_FEATURE_COUNT = 1;
+	int PARENT_FEATURE_COUNT = LINK_REF_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Parent</em>' class.
@@ -1482,7 +1556,7 @@ public interface UrdfPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PARENT_OPERATION_COUNT = 0;
+	int PARENT_OPERATION_COUNT = LINK_REF_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.ros.model.urdf.impl.PassiveJointTransmissionImpl <em>Passive Joint Transmission</em>}' class.
@@ -2350,17 +2424,6 @@ public interface UrdfPackage extends EPackage {
 	EClass getChild();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.ros.model.urdf.Child#getLink <em>Link</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Link</em>'.
-	 * @see org.ros.model.urdf.Child#getLink()
-	 * @see #getChild()
-	 * @generated
-	 */
-	EAttribute getChild_Link();
-
-	/**
 	 * Returns the meta object for class '{@link org.ros.model.urdf.Collision <em>Collision</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3194,6 +3257,17 @@ public interface UrdfPackage extends EPackage {
 	EAttribute getMaterial_Name();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.ros.model.urdf.Material#getMaterialRef <em>Material Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Material Ref</em>'.
+	 * @see org.ros.model.urdf.Material#getMaterialRef()
+	 * @see #getMaterial()
+	 * @generated
+	 */
+	EReference getMaterial_MaterialRef();
+
+	/**
 	 * Returns the meta object for class '{@link org.ros.model.urdf.MaterialGlobal <em>Material Global</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3352,17 +3426,6 @@ public interface UrdfPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getParent();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.ros.model.urdf.Parent#getLink <em>Link</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Link</em>'.
-	 * @see org.ros.model.urdf.Parent#getLink()
-	 * @see #getParent()
-	 * @generated
-	 */
-	EAttribute getParent_Link();
 
 	/**
 	 * Returns the meta object for class '{@link org.ros.model.urdf.PassiveJointTransmission <em>Passive Joint Transmission</em>}'.
@@ -3947,6 +4010,38 @@ public interface UrdfPackage extends EPackage {
 	EAttribute getVector4_D();
 
 	/**
+	 * Returns the meta object for class '{@link org.ros.model.urdf.LinkRef <em>Link Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Link Ref</em>'.
+	 * @see org.ros.model.urdf.LinkRef
+	 * @generated
+	 */
+	EClass getLinkRef();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.ros.model.urdf.LinkRef#getLinkRef <em>Link Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Link Ref</em>'.
+	 * @see org.ros.model.urdf.LinkRef#getLinkRef()
+	 * @see #getLinkRef()
+	 * @generated
+	 */
+	EReference getLinkRef_LinkRef();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.ros.model.urdf.LinkRef#getLink <em>Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Link</em>'.
+	 * @see org.ros.model.urdf.LinkRef#getLink()
+	 * @see #getLinkRef()
+	 * @generated
+	 */
+	EAttribute getLinkRef_Link();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4090,14 +4185,6 @@ public interface UrdfPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CHILD = eINSTANCE.getChild();
-
-		/**
-		 * The meta object literal for the '<em><b>Link</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CHILD__LINK = eINSTANCE.getChild_Link();
 
 		/**
 		 * The meta object literal for the '{@link org.ros.model.urdf.impl.CollisionImpl <em>Collision</em>}' class.
@@ -4744,6 +4831,14 @@ public interface UrdfPackage extends EPackage {
 		EAttribute MATERIAL__NAME = eINSTANCE.getMaterial_Name();
 
 		/**
+		 * The meta object literal for the '<em><b>Material Ref</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MATERIAL__MATERIAL_REF = eINSTANCE.getMaterial_MaterialRef();
+
+		/**
 		 * The meta object literal for the '{@link org.ros.model.urdf.impl.MaterialGlobalImpl <em>Material Global</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4872,14 +4967,6 @@ public interface UrdfPackage extends EPackage {
 		 * @generated
 		 */
 		EClass PARENT = eINSTANCE.getParent();
-
-		/**
-		 * The meta object literal for the '<em><b>Link</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PARENT__LINK = eINSTANCE.getParent_Link();
 
 		/**
 		 * The meta object literal for the '{@link org.ros.model.urdf.impl.PassiveJointTransmissionImpl <em>Passive Joint Transmission</em>}' class.
@@ -5336,6 +5423,32 @@ public interface UrdfPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute VECTOR4__D = eINSTANCE.getVector4_D();
+
+		/**
+		 * The meta object literal for the '{@link org.ros.model.urdf.impl.LinkRefImpl <em>Link Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ros.model.urdf.impl.LinkRefImpl
+		 * @see org.ros.model.urdf.impl.UrdfPackageImpl#getLinkRef()
+		 * @generated
+		 */
+		EClass LINK_REF = eINSTANCE.getLinkRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Link Ref</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LINK_REF__LINK_REF = eINSTANCE.getLinkRef_LinkRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Link</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LINK_REF__LINK = eINSTANCE.getLinkRef_Link();
 
 	}
 

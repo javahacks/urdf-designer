@@ -83,7 +83,7 @@ public interface Link extends EObject {
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see org.ros.model.urdf.UrdfPackage#getLink_Name()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+	 * @model id="true" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
 	 *        extendedMetaData="kind='attribute' name='name'"
 	 * @generated
 	 */

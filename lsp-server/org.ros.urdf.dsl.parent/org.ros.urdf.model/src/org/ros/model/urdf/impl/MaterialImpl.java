@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.ros.model.urdf.Color;
 import org.ros.model.urdf.Material;
+import org.ros.model.urdf.MaterialGlobal;
 import org.ros.model.urdf.Texture;
 import org.ros.model.urdf.UrdfPackage;
 
@@ -27,6 +28,7 @@ import org.ros.model.urdf.UrdfPackage;
  *   <li>{@link org.ros.model.urdf.impl.MaterialImpl#getColor <em>Color</em>}</li>
  *   <li>{@link org.ros.model.urdf.impl.MaterialImpl#getTexture <em>Texture</em>}</li>
  *   <li>{@link org.ros.model.urdf.impl.MaterialImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.ros.model.urdf.impl.MaterialImpl#getMaterialRef <em>Material Ref</em>}</li>
  * </ul>
  *
  * @generated
@@ -71,6 +73,16 @@ public class MaterialImpl extends MinimalEObjectImpl.Container implements Materi
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getMaterialRef() <em>Material Ref</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMaterialRef()
+	 * @generated
+	 * @ordered
+	 */
+	protected MaterialGlobal materialRef;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -203,6 +215,44 @@ public class MaterialImpl extends MinimalEObjectImpl.Container implements Materi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public MaterialGlobal getMaterialRef() {
+		if (materialRef != null && materialRef.eIsProxy()) {
+			InternalEObject oldMaterialRef = (InternalEObject)materialRef;
+			materialRef = (MaterialGlobal)eResolveProxy(oldMaterialRef);
+			if (materialRef != oldMaterialRef) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, UrdfPackage.MATERIAL__MATERIAL_REF, oldMaterialRef, materialRef));
+			}
+		}
+		return materialRef;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MaterialGlobal basicGetMaterialRef() {
+		return materialRef;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMaterialRef(MaterialGlobal newMaterialRef) {
+		MaterialGlobal oldMaterialRef = materialRef;
+		materialRef = newMaterialRef;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, UrdfPackage.MATERIAL__MATERIAL_REF, oldMaterialRef, materialRef));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -228,6 +278,9 @@ public class MaterialImpl extends MinimalEObjectImpl.Container implements Materi
 				return getTexture();
 			case UrdfPackage.MATERIAL__NAME:
 				return getName();
+			case UrdfPackage.MATERIAL__MATERIAL_REF:
+				if (resolve) return getMaterialRef();
+				return basicGetMaterialRef();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -248,6 +301,9 @@ public class MaterialImpl extends MinimalEObjectImpl.Container implements Materi
 				return;
 			case UrdfPackage.MATERIAL__NAME:
 				setName((String)newValue);
+				return;
+			case UrdfPackage.MATERIAL__MATERIAL_REF:
+				setMaterialRef((MaterialGlobal)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -270,6 +326,9 @@ public class MaterialImpl extends MinimalEObjectImpl.Container implements Materi
 			case UrdfPackage.MATERIAL__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case UrdfPackage.MATERIAL__MATERIAL_REF:
+				setMaterialRef((MaterialGlobal)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -288,6 +347,8 @@ public class MaterialImpl extends MinimalEObjectImpl.Container implements Materi
 				return texture != null;
 			case UrdfPackage.MATERIAL__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case UrdfPackage.MATERIAL__MATERIAL_REF:
+				return materialRef != null;
 		}
 		return super.eIsSet(featureID);
 	}
