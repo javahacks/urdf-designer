@@ -14,7 +14,7 @@
   ],
   "name": "urdf-lsp",
   "dependencies": {
-    "@theia/cli": "^0.13.0",
+    "@theia/cli": "latest",
     "g": "^2.0.1"
   }
 }

@@ -35,12 +35,10 @@ export function registerDSL() {
         mimetypes: ['text/dsl']
     })
        
-    monaco.languages.setMonarchTokensProvider('urdf', <any>{
-        // Set defaultToken to invalid to see what you do not tokenize yet
-        // defaultToken: 'invalid',
-
+    monaco.languages.setMonarchTokensProvider('urdf', <any>{        
         keywords: [
-            'xyz','rpy','lower-limit',"upper-limit",' axis-xyz','file-name','material','parent-name','child-name','scale-xyz','length','width','height','radius'
+            'xyz','rpy','lower-limit',"upper-limit",' axis-xyz','file-name','material','parent-name','child-name','scale-xyz','length',
+            'width','height','radius','rgba','version'
         ],
 
         typeKeywords: [
@@ -51,20 +49,15 @@ export function registerDSL() {
             '='
         ],
 
-                // we include these common regular expressions
         symbols:  /[=><!~?:&|+\-*\/\^%]+/,
-
-        // C# style strings
         escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
 
-        // The main tokenizer for our languages
         tokenizer: {
             root: [
             // identifiers and keywords
             [/[a-z_$][\-\w$]*/, { cases: { '@typeKeywords': 'keyword',
                                         '@keywords': 'keyword',
-                                        '@default': 'identifier' } }],
-            [/[A-Z][\w\$]*/, 'type.identifier' ],  // to show class names nicely
+                                        '@default': 'type.identifier' } }],            
 
             // whitespace
             { include: '@whitespace' },
@@ -75,10 +68,6 @@ export function registerDSL() {
             [/@symbols/, { cases: { '@operators': 'operator',
                                     '@default'  : '' } } ],
 
-            // @ annotations.
-            // As an example, we emit a debugging log message on these tokens.
-            // Note: message are supressed during the first load -- change some lines to see them.
-            [/@\s*[a-zA-Z_\$][\w\$]*/, { token: 'annotation', log: 'annotation token: $0' }],
 
             // numbers
             [/\d*\.\d+([eE][\-+]?\d+)?/, 'number.float'],
@@ -136,4 +125,5 @@ export function registerDSL() {
                 close: ')'
             }]
     })
+    
 }
