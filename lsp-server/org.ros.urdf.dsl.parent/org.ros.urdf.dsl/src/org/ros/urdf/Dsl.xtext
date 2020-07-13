@@ -6,81 +6,54 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 RobotType returns RobotType:
 	'robot' name=ID ('version' '=' version=STRING)? '{'
 	('materials' '{' material+=(TextureGlobal | ColorGlobal)* '}')?
-	('links' '{' link+=(BoxLink|SphereLink|MeshLink|CylinderLink)* '}')?
-	('joints' '{' joint+=(FixedJoint | RevoluteJoint|ContinousJoint|PrismaticJoint)* '}')?
+	('links' '{' link+=(BoxLink | SphereLink | MeshLink | CylinderLink)* '}')?
+	('joints' '{' joint+=(FixedJoint | RevoluteJoint | ContinousJoint | PrismaticJoint)* '}')?
 	'}';
 
-FixedJoint returns Joint:
-	{Joint} type="fixed" name=ID parent=Parent child=Child ('{'
-		origin=Origin?			
-	'}')?;
-
-RevoluteJoint returns Joint:
-	{Joint} type="revolute" name=ID parent=Parent child=Child ('{'
-		origin=Origin?
-		axis= Axis ?
-		limit=Limit?
-	'}')?;
-
-ContinousJoint returns Joint:
-	{Joint} type="continous" name=ID parent=Parent child=Child ('{'
-		origin=Origin?
-		axis= Axis ?		
-	'}')?;	
-
-PrismaticJoint returns Joint:
-	{Joint} type="prismatic" name=ID parent=Parent child=Child ('{'
-		origin=Origin?
-		axis= Axis ?
-		limit=Limit?
-	'}');	
-
-Origin returns Pose:	
+Origin returns Pose:
 	'xyz' '=' xyzVector=Vector3 ('rpy' '=' rpyVector=Vector3)?;
-	
-	
-Axis returns Axis:
-	'axis-xyz' '=' xyzVector=Vector3  
-;	
 
-Limit returns Limit:	
-	'lower-limit' '=' lower=DOUBLE 	
-	'upper-limit' '=' upper=DOUBLE
-;
+Axis returns Axis:
+	'axis-xyz' '=' xyzVector=Vector3;
+
+Limit returns Limit:
+	'lower-limit' '=' lower=DOUBLE
+	'upper-limit' '=' upper=DOUBLE;
 
 InlineMaterial returns Material:
 	'material' '=' materialRef=[MaterialGlobal];
 
 BoxLink returns Link:
-	'box'  name=ID visual+=BoxVisual;
+	'box' name=ID visual+=BoxVisual;
+
 SphereLink returns Link:
-	'sphere'  name=ID visual+=SphereVisual;	
+	'sphere' name=ID visual+=SphereVisual;
+
 MeshLink returns Link:
-	'mesh'  name=ID visual+=MeshVisual;	
+	'mesh' name=ID visual+=MeshVisual;
+
 CylinderLink returns Link:
-	'cylinder'  name=ID visual+=CylinderVisual;	
+	'cylinder' name=ID visual+=CylinderVisual;
 
-BoxVisual returns Visual:			 
-	geometry=BoxGeometry		
-	material=InlineMaterial? 
-	('{' origin=Origin  '}')?
-;
-SphereVisual returns Visual:			 
-	geometry=SphereGeometry		
-	material=InlineMaterial? 
-	('{' origin=Origin  '}')?
-;
-CylinderVisual returns Visual:			 
-	geometry=CylinderGeometry		
-	material=InlineMaterial? 
-	('{' origin=Origin  '}')?
-;
+BoxVisual returns Visual:
+	geometry=BoxGeometry
+	material=InlineMaterial?
+	('{' origin=Origin '}')?;
 
-MeshVisual returns Visual:			 
-	geometry=MeshGeometry		
-	material=InlineMaterial? 
-	('{' origin=Origin  '}')?
-;
+SphereVisual returns Visual:
+	geometry=SphereGeometry
+	material=InlineMaterial?
+	('{' origin=Origin '}')?;
+
+CylinderVisual returns Visual:
+	geometry=CylinderGeometry
+	material=InlineMaterial?
+	('{' origin=Origin '}')?;
+
+MeshVisual returns Visual:
+	geometry=MeshGeometry
+	material=InlineMaterial?
+	('{' origin=Origin '}')?;
 
 BoxGeometry returns Geometry:
 	box=Box;
@@ -90,9 +63,9 @@ CylinderGeometry returns Geometry:
 
 SphereGeometry returns Geometry:
 	sphere=Sphere;
-	
+
 MeshGeometry returns Geometry:
-	mesh=Mesh;	
+	mesh=Mesh;
 
 Box returns Box:
 	dimension=BoxDimension;
@@ -107,8 +80,7 @@ Sphere returns Sphere:
 	'radius' '=' radius=DOUBLE;
 
 Mesh returns Mesh:
-	'file-name' '=' filename=STRING ('scale-xyz' '=' scaleVector=Vector3)? 
-;
+	'file-name' '=' filename=STRING ('scale-xyz' '=' scaleVector=Vector3)?;
 
 TextureGlobal returns MaterialGlobal:
 	'texture' name=ID texture=Texture;
@@ -121,6 +93,31 @@ ColorGlobal returns MaterialGlobal:
 
 Color returns Color:
 	'rgba' '=' color=Vector4;
+
+FixedJoint returns Joint:
+	{Joint} type="fixed" name=ID parent=Parent child=Child ('{'
+	origin=Origin?
+	'}')?;
+
+RevoluteJoint returns Joint:
+	{Joint} type="revolute" name=ID parent=Parent child=Child ('{'
+	origin=Origin?
+	axis=Axis?
+	limit=Limit?
+	'}')?;
+
+ContinousJoint returns Joint:
+	{Joint} type="continous" name=ID parent=Parent child=Child ('{'
+	origin=Origin?
+	axis=Axis?
+	'}')?;
+
+PrismaticJoint returns Joint:
+	{Joint} type="prismatic" name=ID parent=Parent child=Child ('{'
+	origin=Origin?
+	axis=Axis?
+	limit=Limit?
+	'}');
 
 Parent:
 	'parent-name' '=' linkRef=[Link];
@@ -137,5 +134,6 @@ Vector4:
 DOUBLE returns ecore::EDouble:
 	'-'? INT ('.' INT)?;
 
-@Override	
-terminal ID: '^'?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'-'|'0'..'9')*;	
+@Override
+terminal ID:
+	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '-' | '0'..'9')*;	

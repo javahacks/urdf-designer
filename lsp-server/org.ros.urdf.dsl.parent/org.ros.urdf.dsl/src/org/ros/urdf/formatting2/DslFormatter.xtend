@@ -4,20 +4,30 @@
 package org.ros.urdf.formatting2
 
 import com.google.inject.Inject
-import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
+import org.ros.model.urdf.Box
+import org.ros.model.urdf.Color
+import org.ros.model.urdf.Cylinder
+import org.ros.model.urdf.Geometry
 import org.ros.model.urdf.Joint
 import org.ros.model.urdf.Link
+import org.ros.model.urdf.Material
 import org.ros.model.urdf.MaterialGlobal
+import org.ros.model.urdf.Mesh
+import org.ros.model.urdf.Pose
 import org.ros.model.urdf.RobotType
+import org.ros.model.urdf.Sphere
+import org.ros.model.urdf.Texture
 import org.ros.model.urdf.UrdfPackage
+import org.ros.model.urdf.Vector3
+import org.ros.model.urdf.Vector4
+import org.ros.model.urdf.Visual
 import org.ros.urdf.services.DslGrammarAccess
 
 import static org.ros.model.urdf.UrdfPackage.Literals.*
-import org.ros.model.urdf.Visual
-import org.ros.model.urdf.Box
-import org.ros.model.urdf.Geometry
+import org.ros.model.urdf.Parent
+import org.ros.model.urdf.Axis
 
 class DslFormatter extends AbstractFormatter2 {
 
@@ -26,13 +36,15 @@ class DslFormatter extends AbstractFormatter2 {
 	def dispatch void format(RobotType robot, extension IFormattableDocument doc) {
 		robot.regionFor.feature(ROBOT_TYPE__NAME).surround[oneSpace]
 		robot.regionFor.feature(ROBOT_TYPE__VERSION).surround[oneSpace]
+				
 
 		for (keywordPair : robotTypeAccess.findKeywordPairs("{", "}")) {
 			val left = robot.regionFor.keyword(keywordPair.first)
-			val right = robot.regionFor.keyword(keywordPair.second)
+			left.surround[oneSpace]
 			left?.append[setNewLines(2,2,3)]
-			right?.prepend[newLine]
-			interior(left, right)[indent]
+			val right = robot.regionFor.keyword(keywordPair.second)						
+			right?.append[setNewLines(2,2,3)]
+			interior(left, right)[indent]			
 		}
 
 		for (feature : robot.material) {
@@ -53,24 +65,100 @@ class DslFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(MaterialGlobal material, extension IFormattableDocument doc) {
 		material.regionFor.feature(UrdfPackage.Literals.MATERIAL_GLOBAL__NAME).surround[oneSpace]
+		material.color.format		
+		material.texture.format
 	}
-
+	
+	def dispatch void format(Texture texture, extension IFormattableDocument doc) {
+		texture.regionFor.feature(UrdfPackage.Literals.TEXTURE__FILENAME).surround[oneSpace]			
+	}
+	
+	def dispatch void format(Color color, extension IFormattableDocument doc) {
+		color.regionFor.feature(UrdfPackage.Literals.MATERIAL_GLOBAL__NAME).surround[oneSpace]
+		color.color.format			
+	}
+	
+	
 	def dispatch void format(Link link, extension IFormattableDocument doc) {
+		link.regionFor.feature(UrdfPackage.Literals.LINK__TYPE).surround[oneSpace]
 		link.regionFor.feature(UrdfPackage.Literals.LINK__NAME).surround[oneSpace]
 		for (visual:  link.visual) {									
 			visual.format			
 		}		
 	}
 
-	def dispatch void format(Joint joint, extension IFormattableDocument doc) {
-		joint.regionFor.feature(UrdfPackage.Literals.JOINT__NAME).surround[oneSpace]		
-	}
 
-	def dispatch void format(Visual visual, extension IFormattableDocument doc) {		
+	def dispatch void format(Visual visual, extension IFormattableDocument doc) {					
 		val left = visual.regionFor.keyword("{")
 		val right = visual.regionFor.keyword("}")		
 		left?.append[newLine]
-		interior(left, right)[indent]		
+		interior(left, right)[indent]			
+		visual.origin.format
+		visual.material.format
+		visual.geometry.format
+			
 	}
 
+	def dispatch void format(Pose pose, extension IFormattableDocument doc) {
+		pose.rpyVector.format
+		pose.xyzVector.format		
+	}
+	
+	def dispatch void format(Material material, extension IFormattableDocument doc) {
+		material.regionFor.feature(MATERIAL__NAME).surround[oneSpace]		
+	}
+	
+	def dispatch void format(Geometry geometry, extension IFormattableDocument doc) {
+		geometry.box.format
+		geometry.cylinder.format
+		geometry.sphere.format
+		geometry.mesh.format		
+	}
+	
+	def dispatch void format(Box box, extension IFormattableDocument doc) {				
+		box.dimension.regionFor.keyword("length").surround[oneSpace]			
+		box.dimension.regionFor.keyword("width").surround[oneSpace]
+		box.dimension.regionFor.keyword("height").surround[oneSpace]
+	}
+	def dispatch void format(Sphere sphere, extension IFormattableDocument doc) {
+		sphere.regionFor.feature(SPHERE__RADIUS).surround[oneSpace]		
+	}
+	def dispatch void format(Cylinder cylinder, extension IFormattableDocument doc) {
+		cylinder.regionFor.feature(CYLINDER__LENGTH).surround[oneSpace]		
+		cylinder.regionFor.feature(CYLINDER__RADIUS).surround[oneSpace]
+	}
+	def dispatch void format(Mesh mesh, extension IFormattableDocument doc) {
+		mesh.regionFor.feature(MESH__FILENAME).surround[oneSpace]
+		mesh.scaleVector.format
+	}
+	
+	def dispatch void format(Joint joint, extension IFormattableDocument doc) {
+		joint.regionFor.feature(JOINT__NAME).surround[oneSpace]		
+		joint.origin.format
+		joint.axis.format		
+	}
+	
+	def dispatch void format(Axis axis, extension IFormattableDocument doc) {				
+		axis.xyzVector.format
+	}
+		
+	def dispatch void format(Vector3 vector3, extension IFormattableDocument doc) {
+		vector3.regionFor.feature(VECTOR3__A).prepend[noSpace]
+		vector3.regionFor.feature(VECTOR3__A).append[noSpace]
+		vector3.regionFor.feature(VECTOR3__B).prepend[oneSpace]
+		vector3.regionFor.feature(VECTOR3__B).append[noSpace]
+		vector3.regionFor.feature(VECTOR3__C).prepend[oneSpace]		
+		vector3.regionFor.feature(VECTOR3__C).append[noSpace]
+	}
+	def dispatch void format(Vector4 vector4, extension IFormattableDocument doc) {
+		vector4.regionFor.feature(VECTOR4__A).prepend[noSpace]
+		vector4.regionFor.feature(VECTOR4__A).append[noSpace]
+		vector4.regionFor.feature(VECTOR4__B).prepend[oneSpace]
+		vector4.regionFor.feature(VECTOR4__B).append[noSpace]
+		vector4.regionFor.feature(VECTOR4__C).prepend[oneSpace]		
+		vector4.regionFor.feature(VECTOR4__C).append[noSpace]
+		vector4.regionFor.feature(VECTOR4__D).prepend[oneSpace]
+		vector4.regionFor.feature(VECTOR4__D).append[noSpace]
+	}
+	
 }
