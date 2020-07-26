@@ -1,0 +1,35 @@
+{
+  "name": "urdf-outline",
+  "publisher": "javahacks2",
+  "keywords": [
+    "urdf-outline-plugin2"
+  ],
+  "version": "0.0.1",
+  "license": "EPL",
+  "files": [
+    "src"
+  ],
+  "activationEvents": [
+        "*"
+  ],
+  "devDependencies": {
+    "@theia/plugin": "latest",
+    "rimraf": "^2.6.2",
+    "copyfiles": "2.3.0",
+    "typescript": "latest"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "clean": "rimraf lib",
+    "watch": "tsc -w",
+    "build": "tsc && yarn run copy",
+    "copy" :"copyfiles lib/**  package.json ../browser-app/plugins/outline/"
+  },
+  "engines": {
+    "theiaPlugin": "latest" 
+  },
+
+  "theiaPlugin": {
+    "backend": "lib/outline-test-backend.js"
+  }
+}
