@@ -10,6 +10,7 @@
   },
   "workspaces": [
     "urdf-extension",
+    "urdf-outline-plugin",
     "browser-app"
   ],
   "name": "urdf-lsp",

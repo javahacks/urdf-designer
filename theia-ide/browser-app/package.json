@@ -19,7 +19,9 @@
     "@theia/process": "latest",
     "@theia/terminal": "latest",
     "@theia/workspace": "latest",
-    "@theia/file-search": "latest",            
+    "@theia/file-search": "latest",   
+    "@theia/plugin-dev": "latest",
+    "@theia/plugin-ext": "latest",         
     "websocket": "1.0.31",
     "http-proxy": "^1.18.1",
     "urdf-extension": "0.0.0"
@@ -31,10 +33,11 @@
     "clean": "theia clean",
     "build": "theia build --mode development",
     "build-production": "theia build --mode production",
-    "start": "theia start",
+    "start": "theia start --plugins=local-dir:plugins",
     "watch": "theia build --watch --mode development"
   },
   "theia": {
     "target": "browser"
   }
+  
 }
