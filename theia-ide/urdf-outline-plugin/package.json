@@ -5,7 +5,7 @@
     "urdf-outline-plugin"
   ],
   "version": "0.0.1",
-  "license": "EPL",
+  "license": "EPL-2.0",
   "files": [
     "src"
   ],
@@ -13,20 +13,22 @@
         "*"
   ],
   "devDependencies": {
-    "@theia/plugin": "latest",
+    "@theia/plugin": "next",
+    "@theia/plugin-packager": "latest",
     "rimraf": "^2.6.2",
     "copyfiles": "2.3.0",
     "typescript": "latest"
   },
-  "scripts": {
-    "prepare": "yarn run clean && yarn run build",
-    "clean": "rimraf lib",
-    "watch": "tsc -w",
-    "build": "tsc && yarn run copy",
-    "copy" :"copyfiles lib/**  package.json ../browser-app/plugins/outline/"
-  },
+   "scripts": {
+        "prepare": "yarn run clean && yarn run build",
+        "clean": "rimraf lib",
+        "watch": "tsc -watch",
+        "compile": "tsc", 
+        "copy" :"copyfiles urdf_outline.theia  ../browser-app/plugins/" ,
+        "build": "yarn run compile && theia-plugin pack && yarn run copy"
+      },
   "engines": {
-    "theiaPlugin": "latest" 
+    "theiaPlugin": "next"
   },
 
   "theiaPlugin": {
