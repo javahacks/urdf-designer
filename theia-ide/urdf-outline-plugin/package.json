@@ -1,8 +1,8 @@
 {
   "name": "urdf-outline",
-  "publisher": "javahacks2",
+  "publisher": "javahacks",
   "keywords": [
-    "urdf-outline-plugin2"
+    "urdf-outline-plugin"
   ],
   "version": "0.0.1",
   "license": "EPL",
@@ -30,6 +30,6 @@
   },
 
   "theiaPlugin": {
-    "backend": "lib/outline-test-backend.js"
+    "backend": "lib/outline-backend.js"
   }
 }

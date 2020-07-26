@@ -1,16 +1,11 @@
 
-/**
- * Generated using theia-plugin-generator
- */
-
-
 import * as theia from '@theia/plugin';
 
 export function start(context: theia.PluginContext) {
     context.subscriptions.push(
         theia.languages.registerDocumentSymbolProvider(
             {scheme: "file", language: "urdf"}, 
-            new SwmfConfigDocumentSymbolProvider())
+            new UrdfDocumentSymbolProvider())
     );
     
 }
@@ -19,7 +14,7 @@ export function stop() {
 
 }
 
-class SwmfConfigDocumentSymbolProvider implements theia.DocumentSymbolProvider {
+class UrdfDocumentSymbolProvider implements theia.DocumentSymbolProvider {
     public provideDocumentSymbols(
         document: theia.TextDocument,
         token: theia.CancellationToken): Promise<theia.DocumentSymbol[]> {
