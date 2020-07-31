@@ -23,7 +23,7 @@ class DslParsingTest {
 	def void loadModel() {
 			UrdfPackage.eINSTANCE.eClass();
 		val result = parseHelper.parse('''
-			robot "test" version="1.0" { }
+			robot test version="1.0" { }
 		''')
 		Assertions.assertNotNull(result)
 		val errors = result.eResource.errors
