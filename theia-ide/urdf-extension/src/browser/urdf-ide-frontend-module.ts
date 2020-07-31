@@ -11,8 +11,7 @@ import SymbolKind = monaco.languages.SymbolKind;
 import URI from '@theia/core/lib/common/uri';
 
 
-export default new ContainerModule((bind, unbind, rebind) => {
-
+export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind<LanguageClientContribution>(LanguageClientContribution).to(DslClientContribution).inSingletonScope();
     bindViewContribution(bind, UrdfIdeContribution);
     bind(FrontendApplicationContribution).toService(UrdfIdeContribution);
@@ -22,9 +21,7 @@ export default new ContainerModule((bind, unbind, rebind) => {
         id: UrdfPreviewWidget.ID,
         createWidget: () => ctx.container.get<UrdfPreviewWidget>(UrdfPreviewWidget)
     })).inSingletonScope();
-
-    unbind(MonacoOutlineContribution);
-    bind(MonacoOutlineContribution).to(CustomOutlineContribution).inSingletonScope();
+    rebind(MonacoOutlineContribution).to(CustomOutlineContribution).inSingletonScope();
 });
 
 
@@ -33,7 +30,7 @@ class CustomOutlineContribution extends MonacoOutlineContribution {
 
     protected createNodes(uri: URI, symbols: DocumentSymbol[]): MonacoOutlineSymbolInformationNode[] {
         if (!uri.displayName.endsWith("urdf")) {
-            return super.createNodes(uri, symbols);            
+            return super.createNodes(uri, symbols);
         }
         if (symbols.length == 1 && symbols[0].children) {
             return symbols[0].children?.
@@ -43,18 +40,17 @@ class CustomOutlineContribution extends MonacoOutlineContribution {
         return [];
     }
 
-
     private mapSymbol(symbol: DocumentSymbol, uri: URI) {
         const segments = symbol.name!.split(".");
         const type = segments[0];
         return this.createSymbolNode(uri, symbol.name, segments[1], this.getIconClass(type), symbol);
     }
 
-    private createSymbolNode(uri: URI, id: string, name: string, symbolKind: SymbolKind, symbol: DocumentSymbol): MonacoOutlineSymbolInformationNode {        
+    private createSymbolNode(uri: URI, id: string, name: string, symbolKind: SymbolKind, symbol: DocumentSymbol): MonacoOutlineSymbolInformationNode {
         const node: MonacoOutlineSymbolInformationNode = {
             uri: uri,
             id: id,
-            iconClass: symbolKind.toString().toLowerCase(),
+            iconClass: SymbolKind[symbolKind].toString().toLowerCase(),
             name: name,
             children: [],
             parent: undefined,
@@ -67,12 +63,13 @@ class CustomOutlineContribution extends MonacoOutlineContribution {
     }
 
     private getIconClass(type: string): SymbolKind {
-        if (type == "material") {
+        if (type === 'material') {
             return SymbolKind.Constant;
         }
-        if (type == "link") {
-            return SymbolKind.Module;
+        if (type === 'link') {
+            return SymbolKind.Object;
         }
-        return SymbolKind.Function;
+        return SymbolKind.Module;
     }
+
 }
