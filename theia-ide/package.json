@@ -9,8 +9,7 @@
     "lerna": "^3.20.2"
   },
   "workspaces": [
-    "urdf-extension",
-    "urdf-outline-plugin",
+    "urdf-extension",    
     "browser-app"
   ],
   "name": "urdf-lsp",

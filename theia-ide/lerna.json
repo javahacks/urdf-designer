@@ -9,7 +9,6 @@
   },
   "packages": [
     "urdf-extension",
-    "browser-app",
-    "urdf-outline-plugin"
+    "browser-app"    
   ]
 }
