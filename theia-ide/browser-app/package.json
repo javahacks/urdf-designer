@@ -33,7 +33,7 @@
     "clean": "theia clean",
     "build": "theia build --mode development",
     "build-production": "theia build --mode production",
-    "start": "theia start --plugins=local-dir:plugins",
+    "start": "theia start ",
     "watch": "theia build --watch --mode development"
   },
   "theia": {

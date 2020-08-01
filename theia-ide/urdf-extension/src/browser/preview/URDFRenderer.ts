@@ -1,7 +1,7 @@
 import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 import '@babylonjs/loaders';
 import {AdvancedDynamicTexture, Control, Slider, StackPanel, TextBlock} from '@babylonjs/gui/2D';
-import {AbstractMesh, ArcRotateCamera, AssetsManager, TransformNode} from '@babylonjs/core/Legacy/legacy';
+import {AbstractMesh, ArcRotateCamera, TransformNode, Material } from '@babylonjs/core/Legacy/legacy';
 import {BaseModel, JointInfo, RobotDescription} from './UrdfModel';
 
 
@@ -10,9 +10,9 @@ import {BaseModel, JointInfo, RobotDescription} from './UrdfModel';
  */
 export class URDFRenderer {
   private scene: BABYLON.Scene;
-  private idMeshMap = new Map();
-  private idMaterialMap = new Map();
-  private assetsManager: AssetsManager;
+  private idMeshMap = new Map<string,AbstractMesh>();
+  private idMaterialMap = new Map<string,Material>();
+  
   private menuPanel: StackPanel;
 
   public attachCanvas(canvas: HTMLCanvasElement) {
@@ -20,42 +20,10 @@ export class URDFRenderer {
     this.createScene(engine, canvas);
   }
 
-  public resize(): void {
-    this.scene?.getEngine().resize();
-  }
-
-  public resetModel() {
-    this.idMeshMap.forEach( value => value.dispose());
-    this.idMaterialMap.forEach(value=> value.dispose());    
-    this.menuPanel.clearControls();
-  }
-
-  public resetView() {
-    const camera=this.scene.getCameraByID("camera") as ArcRotateCamera;
-    camera.alpha=0;
-    camera.beta=Math.PI / 4;
-    camera.setTarget(BABYLON.Vector3.Zero());
-  }
-
-  public initRobotModel(robot: RobotDescription) {
-    this.setupMaterials(robot);
-    this.setupBoxes(robot);
-    this.setupCylinders(robot);
-    this.setupSpheres(robot);
-    this.setupMeshes(robot);
-
-    this.assetsManager.onFinish = tasks => {
-      this.connectMeshes(robot);
-    }
-    this.assetsManager.load();
-
-  }
-
   private createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
     this.scene = new BABYLON.Scene(engine);
     this.scene.clearColor = BABYLON.Color4.FromInts(0, 0, 0, 0);
-    this.assetsManager = new BABYLON.AssetsManager(this.scene);
-
+    
     const camera = new BABYLON.ArcRotateCamera('camera', 0, Math.PI / 4, 3, BABYLON.Vector3.Zero(), this.scene);
     camera.wheelPrecision = 100;
     camera.lowerRadiusLimit = 2;
@@ -78,15 +46,38 @@ export class URDFRenderer {
 
   }
 
-  private setupSpheres(robot: RobotDescription) {
-    for (const sphere of robot.spheres) {
-      const mesh = BABYLON.MeshBuilder.CreateSphere(sphere.id, {
-        diameter: sphere.radius * 2, segments: 32
-      }, this.scene);
+  public resize(): void {
+    this.scene?.getEngine().resize();
+  }
 
-      this.setupBaseProperties(mesh, sphere);
-      this.idMeshMap.set(sphere.id, mesh);
-    }
+  public resetModel() {
+    this.idMeshMap.forEach( value => value.dispose());
+    this.idMaterialMap.forEach(value=> value.dispose());    
+    this.menuPanel.clearControls();
+  }
+
+  highlightMeshes(ids: string[]) {
+    
+    this.idMeshMap.forEach( (mesh:AbstractMesh,id:string) => {
+        if(mesh.material){
+          mesh.material.alpha= ids.length==0 || ids.includes(id)  ? 1.0 :0.2;
+        }
+    });    
+  }
+
+  public resetView() {
+    const camera=this.scene.getCameraByID("camera") as ArcRotateCamera;
+    camera.alpha=0;
+    camera.beta=Math.PI / 4;
+    camera.setTarget(BABYLON.Vector3.Zero());
+  }
+
+  public initRobotModel(robot: RobotDescription) {
+    this.setupMaterials(robot);
+    this.setupBoxes(robot);
+    this.setupCylinders(robot);
+    this.setupSpheres(robot);
+    this.setupMeshes(robot);        
   }
 
   private setupCylinders(robot: RobotDescription) {
@@ -112,11 +103,24 @@ export class URDFRenderer {
     }
   }
 
+  private setupSpheres(robot: RobotDescription) {
+    for (const sphere of robot.spheres) {
+      const mesh = BABYLON.MeshBuilder.CreateSphere(sphere.id, {
+        diameter: sphere.radius * 2, segments: 32
+      }, this.scene);
+
+      this.setupBaseProperties(mesh, sphere);
+      this.idMeshMap.set(sphere.id, mesh);
+    }
+  }
+
   private setupMeshes(robot: RobotDescription) {
+    
+    const assetsManager = new BABYLON.AssetsManager(this.scene);    
     for (const meshVisual of robot.meshVisuals) {
 
       const rootUrl = encodeURI(meshVisual.fileName) + '&sceneName=';
-      const meshTask = this.assetsManager.addMeshTask(meshVisual.fileName, meshVisual.id, rootUrl, 'mesh.stl');
+      const meshTask = assetsManager.addMeshTask(meshVisual.fileName, meshVisual.id, rootUrl, 'mesh.stl');
       meshTask.onSuccess = (task) => {
         if (task.loadedMeshes.length == 1) {
           const loadedMesh = task.loadedMeshes[0];
@@ -124,8 +128,14 @@ export class URDFRenderer {
           this.setupBaseProperties(loadedMesh, meshVisual);
           loadedMesh.scaling = new BABYLON.Vector3(this.getScaleFactor(meshVisual.scaleX), this.getScaleFactor(meshVisual.scaleY), this.getScaleFactor(meshVisual.scaleZ));
         }
-      };
+      };      
     }
+
+    assetsManager.onFinish = tasks => {
+      this.connectMeshes(robot);
+    }
+
+    assetsManager.load();
   }
 
   private getScaleFactor(scale: number) {
@@ -139,6 +149,7 @@ export class URDFRenderer {
       colorMaterial.alpha = color.alpha;
       colorMaterial.zOffset = robot.colors.indexOf(color);
       this.idMaterialMap.set(color.id, colorMaterial);
+      
     }
     for (const texture of robot.textures) {
       const textureMaterial = new BABYLON.StandardMaterial(texture.id, this.scene);
@@ -151,7 +162,7 @@ export class URDFRenderer {
   private setupBaseProperties(mesh: AbstractMesh, model: BaseModel) {
     mesh.position = new BABYLON.Vector3(model.x, model.y, model.z);
     mesh.rotation = new BABYLON.Vector3(model.roll, model.pitch, model.yaw);
-    mesh.material = this.idMaterialMap.get(model.materialId);
+    mesh.material = this.idMaterialMap.get(model.materialId)!.clone(mesh.name+"-material");
   }
 
   private connectMeshes(robot: RobotDescription) {
@@ -167,7 +178,7 @@ export class URDFRenderer {
 
       const parent = this.idMeshMap.get(joint.parent);
       const child = this.idMeshMap.get(joint.child);
-      if (child) {
+      if (child && parent) {
         transform.parent = parent.parent ? parent.parent : parent;
         child.parent = transform;
       }

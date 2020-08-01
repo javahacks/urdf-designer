@@ -8,6 +8,7 @@ import { RobotDescription } from './UrdfModel';
 
 @injectable()
 export class UrdfPreviewWidget extends ReactWidget {
+    
     static readonly ID = 'urdf-preview:widget';
     static readonly LABEL = 'URDF Preview';
     private renderer:URDFRenderer;
@@ -26,8 +27,7 @@ export class UrdfPreviewWidget extends ReactWidget {
     private initGui() {                     
         const canvas: any = document.getElementById('renderCanvas');                
         this.renderer=new URDFRenderer();
-        this.renderer.attachCanvas(canvas);                    
-               
+        this.renderer.attachCanvas(canvas);                                   
     }
         
     initModel(model:RobotDescription){
@@ -41,6 +41,10 @@ export class UrdfPreviewWidget extends ReactWidget {
     resetModel(){             
         this.renderer?.resetModel();
     } 
+
+    setSelection(ids: string[]) {
+       this.renderer?.highlightMeshes(ids);
+    }
 
     protected render(): React.ReactNode {           
         return <canvas id="renderCanvas" style={ { height: '99%', width: '99%', padding:'2px',outlineStyle:'none' } }></canvas>               

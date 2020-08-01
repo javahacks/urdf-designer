@@ -7,16 +7,18 @@ import {UrdfPreviewWidget} from "./urdf-preview-widget";
 import { DisposableCollection } from '@theia/core';
 import { RobotDescription } from './UrdfModel';
 import { TabBarToolbarRegistry,TabBarToolbarContribution } from '@theia/core/lib/browser/shell/tab-bar-toolbar';
+import {  OutlineSymbolInformationNode } from '@theia/outline-view/lib/browser/outline-view-widget'
+import { OutlineChangedPublisher } from './outline-view-contribution';
 export const UrdfIdeCommand: Command = { id: 'urdf-ide:command' };
 
 @injectable()
-export class UrdfIdeContribution extends AbstractViewContribution<UrdfPreviewWidget>  implements FrontendApplicationContribution,TabBarToolbarContribution{
-    
+export class UrdfIdeContribution extends AbstractViewContribution<UrdfPreviewWidget>  implements FrontendApplicationContribution,TabBarToolbarContribution{    
     private readonly toDisposeOnClose = new DisposableCollection();
 
     @inject(Workspace) workspace:Workspace;   
     @inject(EditorManager) editorManager:EditorManager;   
-
+    @inject(OutlineChangedPublisher) publisher:OutlineChangedPublisher;   
+    
     constructor() {
         super({
             widgetId: UrdfPreviewWidget.ID,
@@ -28,14 +30,15 @@ export class UrdfIdeContribution extends AbstractViewContribution<UrdfPreviewWid
 
     onStart(app: FrontendApplication): void {        
         this.toDisposeOnClose.push(this.workspace.onDidSaveTextDocument!(e=>this.updateEditor()));                                                                                  
-        this.toDisposeOnClose.push(this.editorManager.onCurrentEditorChanged(e=>this.updateEditor()));                               
+        this.toDisposeOnClose.push(this.editorManager.onCurrentEditorChanged(e=>this.updateEditor()));                                       
+        this.toDisposeOnClose.push(this.publisher.onDidChangeOutline(roots=>this.updateSelectedNodes(roots)));                                       
     }
 
     onStop(app: FrontendApplication): void {        
-        this.toDisposeOnClose.dispose();
+        this.toDisposeOnClose.dispose();        
     }
 
-    async initializeLayout(app: FrontendApplication): Promise<void> {        
+    async initializeLayout(app: FrontendApplication): Promise<void> {                
         await this.openView(); //show view by default
     }
 
@@ -48,6 +51,12 @@ export class UrdfIdeContribution extends AbstractViewContribution<UrdfPreviewWid
             isVisible: widget  => widget instanceof UrdfPreviewWidget,
             execute: () => this.resolvePreviewWIdget()?.resetView()
         });    
+    }
+
+
+    private updateSelectedNodes(roots:OutlineSymbolInformationNode[]){        
+        const nodeNames=roots.filter(node=>node.selected && node.id.startsWith("link.") && node.name).map(node=>node.name!);
+        this.resolvePreviewWIdget()?.setSelection(nodeNames);        
     }
 
     private updateEditor(){        
@@ -78,9 +87,7 @@ export class UrdfIdeContribution extends AbstractViewContribution<UrdfPreviewWid
             tooltip: 'Reset Camera',
             priority: 0
         });
-    }   
-
-    
+    }      
 }
 
 export namespace PreviewCommands {    
@@ -90,3 +97,4 @@ export namespace PreviewCommands {
         iconClass: 'fa fa-crosshairs'
     };
 }
+
