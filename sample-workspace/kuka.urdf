@@ -4,7 +4,6 @@ robot kuka_lwr version="1.0" {
         color orange rgba= (1.0,0.309,0,1.0)        
         color black rgba= (0,0,0,1.0)        
         color white-transparent rgba= (1,1,1,0.8)  
-
     } 
     
     links {
@@ -33,8 +32,8 @@ robot kuka_lwr version="1.0" {
     }
 
     joints {
-        revolute base_joint parent-name=calib_kuka_arm_base_link child-name=kuka_arm_1_link  {
-        	xyz=(0,0,0.11) rpy=(0,0,0) axis-xyz=(0,0,1) lower-limit=-2.96705972839 upper-limit=2.96705972839
+        continuous base_joint parent-name=calib_kuka_arm_base_link child-name=kuka_arm_1_link  {
+        	xyz=(0,0,0.11) rpy=(0,0,0) axis-xyz=(0,0,1)
         } 
         revolute joint-1 parent-name=kuka_arm_1_link child-name=kuka_arm_2_link { 
         	xyz=(0,0,0.2) rpy=(0,0,0) axis-xyz=(0 ,-1, 0) lower-limit=-1.57079632679 upper-limit=1.57079632679

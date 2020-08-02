@@ -107,7 +107,7 @@ RevoluteJoint returns Joint:
 	'}')?;
 
 ContinousJoint returns Joint:
-	{Joint} type="continous" name=ID parent=Parent child=Child ('{'
+	{Joint} type="continuous" name=ID parent=Parent child=Child ('{'
 	origin=Origin?
 	axis=Axis?
 	'}')?;
