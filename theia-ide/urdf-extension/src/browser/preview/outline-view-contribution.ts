@@ -10,8 +10,7 @@ import { FrontendApplication } from '@theia/core/lib/browser';
 import debounce = require('lodash.debounce');
 
 @injectable()
-export class OutlineChangedPublisher {
-
+export class OutlineInformationChangedPublisher {
     private readonly onDidChangeOutlineEmitter = new Emitter<OutlineSymbolInformationNode[]>();
 
     get onDidChangeOutline(): Event<OutlineSymbolInformationNode[]> {
@@ -27,14 +26,14 @@ export class OutlineChangedPublisher {
 @injectable()
 export class UrdfOutlineContribution extends MonacoOutlineContribution {
 
-    @inject(OutlineChangedPublisher) publisher:OutlineChangedPublisher;
-
+    @inject(OutlineInformationChangedPublisher) publisher:OutlineInformationChangedPublisher;
 
     /**
-     * The outline information should be published always even when outline view is invisible
+     * The outline information should be published even when outline view is noz visible
+     * in order to synchronize preview and text editor.
      */
     onStart(app: FrontendApplication): void {
-        this.toDisposeOnClose.push(this.toDisposeOnEditor);        
+        this.toDisposeOnClose.push(this.toDisposeOnEditor);                
         this.toDisposeOnClose.push(this.editorManager.onCurrentEditorChanged(
             debounce(() => this.handleCurrentEditorChanged(), 50)
         ));
@@ -71,7 +70,7 @@ export class UrdfOutlineContribution extends MonacoOutlineContribution {
     protected createNodes(uri: URI, symbols: DocumentSymbol[]): MonacoOutlineSymbolInformationNode[] {
         if (!uri.displayName.endsWith("urdf")) {
             return super.createNodes(uri, symbols);
-        }
+        }        
         if (symbols.length == 1 && symbols[0].children) {
             return symbols[0].children?.
                 map(symbol => this.mapSymbol(symbol, uri))
@@ -102,15 +101,14 @@ export class UrdfOutlineContribution extends MonacoOutlineContribution {
         return node;
     }
 
-    private getIconClass(type: string): SymbolKind {
-         
+    private getIconClass(type: string): SymbolKind {         
         if (type === 'material') {
-            return SymbolKind.File;
+             return SymbolKind.Variable;
         }
         if (type === 'link') {
             return SymbolKind.Object;
         }
-        return SymbolKind.Variable;
+        return SymbolKind.File;        
     }
   
 }

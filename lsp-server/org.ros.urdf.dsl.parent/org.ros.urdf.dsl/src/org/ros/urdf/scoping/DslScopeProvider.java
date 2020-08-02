@@ -5,19 +5,16 @@ package org.ros.urdf.scoping;
 
 import java.util.List;
 
-import javax.naming.LinkRef;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.Scopes;
-import org.ros.model.urdf.Child;
 import org.ros.model.urdf.Link;
+import org.ros.model.urdf.LinkRef;
 import org.ros.model.urdf.Material;
 import org.ros.model.urdf.MaterialGlobal;
-import org.ros.model.urdf.Parent;
 import org.ros.model.urdf.UrdfPackage;
 
 /**
@@ -32,11 +29,7 @@ public class DslScopeProvider extends AbstractDslScopeProvider {
 			return resolveGlobalMaterials(context);			
 		}
 		
-		if(context instanceof Parent && reference==UrdfPackage.Literals.LINK_REF__LINK_REF) {		
-			return resolveLinks(context);			
-		}
-		
-		if(context instanceof Child && reference==UrdfPackage.Literals.LINK_REF__LINK_REF) {		
+		if(context instanceof LinkRef && reference==UrdfPackage.Literals.LINK_REF__LINK_REF) {		
 			return resolveLinks(context);			
 		}
 				

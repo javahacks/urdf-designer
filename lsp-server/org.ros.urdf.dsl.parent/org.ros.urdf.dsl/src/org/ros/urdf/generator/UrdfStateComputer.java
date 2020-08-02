@@ -6,15 +6,24 @@ import org.eclipse.xtext.resource.IDerivedStateComputer;
 import org.ros.model.urdf.Axis;
 import org.ros.model.urdf.Box;
 import org.ros.model.urdf.Color;
-import org.ros.model.urdf.Joint;
 import org.ros.model.urdf.LinkRef;
 import org.ros.model.urdf.Material;
 import org.ros.model.urdf.Mesh;
-import org.ros.model.urdf.Parent;
 import org.ros.model.urdf.Pose;
 import org.ros.model.urdf.Vector3;
 import org.ros.model.urdf.Vector4;
-import org.ros.model.urdf.Visual;
+
+/**
+ * 
+ * The underlying URDF model was generated from the schema available on
+ * https://github.com/ros/urdfdom/tree/master/xsd. The EMF model contains
+ * additional transient properties (e.g. Vector3D) to improve the convenience of
+ * the DSL. This class is responsible for mapping those transient properties
+ * onto the original model.
+ * 
+ * @author Wolfgang Geck
+ *
+ */
 
 public class UrdfStateComputer implements IDerivedStateComputer {
 
@@ -63,7 +72,6 @@ public class UrdfStateComputer implements IDerivedStateComputer {
 	}
 
 	private void updateBoxState(final Box box) {
-
 		final Vector3 dimension = box.getDimension();
 		box.setSize(dimension != null ? dimension.toString() : null);
 	}

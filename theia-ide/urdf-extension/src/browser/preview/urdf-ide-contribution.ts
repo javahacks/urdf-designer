@@ -8,7 +8,7 @@ import { DisposableCollection } from '@theia/core';
 import { RobotDescription } from './UrdfModel';
 import { TabBarToolbarRegistry,TabBarToolbarContribution } from '@theia/core/lib/browser/shell/tab-bar-toolbar';
 import {  OutlineSymbolInformationNode } from '@theia/outline-view/lib/browser/outline-view-widget'
-import { OutlineChangedPublisher } from './outline-view-contribution';
+import { OutlineInformationChangedPublisher } from './outline-view-contribution';
 export const UrdfIdeCommand: Command = { id: 'urdf-ide:command' };
 
 @injectable()
@@ -17,7 +17,7 @@ export class UrdfIdeContribution extends AbstractViewContribution<UrdfPreviewWid
 
     @inject(Workspace) workspace:Workspace;   
     @inject(EditorManager) editorManager:EditorManager;   
-    @inject(OutlineChangedPublisher) publisher:OutlineChangedPublisher;   
+    @inject(OutlineInformationChangedPublisher) publisher:OutlineInformationChangedPublisher;   
     
     constructor() {
         super({
@@ -38,6 +38,9 @@ export class UrdfIdeContribution extends AbstractViewContribution<UrdfPreviewWid
         this.toDisposeOnClose.dispose();        
     }
 
+
+    
+
     async initializeLayout(app: FrontendApplication): Promise<void> {                
         await this.openView(); //show view by default
     }
@@ -50,7 +53,7 @@ export class UrdfIdeContribution extends AbstractViewContribution<UrdfPreviewWid
             isEnabled: widget  => widget instanceof UrdfPreviewWidget,
             isVisible: widget  => widget instanceof UrdfPreviewWidget,
             execute: () => this.resolvePreviewWIdget()?.resetView()
-        });    
+        });               
     }
 
 
@@ -79,14 +82,15 @@ export class UrdfIdeContribution extends AbstractViewContribution<UrdfPreviewWid
     private resolvePreviewWIdget():UrdfPreviewWidget{
         return this.tryGetWidget() as UrdfPreviewWidget;
     }
-
+    
     registerToolbarItems(toolbar: TabBarToolbarRegistry): void {        
+            
         toolbar.registerItem({
             id: PreviewCommands.RESET_VIEW.id,
             command: PreviewCommands.RESET_VIEW.id,
             tooltip: 'Reset Camera',
             priority: 0
-        });
+        });            
     }      
 }
 
@@ -96,5 +100,6 @@ export namespace PreviewCommands {
         id: 'preview.reset.view',
         iconClass: 'fa fa-crosshairs'
     };
+    
 }
 

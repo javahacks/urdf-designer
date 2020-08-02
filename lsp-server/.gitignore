@@ -8,3 +8,4 @@ bin
 .gradle
 generated
 build
+**/target/**
