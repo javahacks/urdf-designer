@@ -11,8 +11,9 @@ Most interesting aspects the demo covers:
 ![URDF Designer](kuka-demo.gif)
 ![URDF Designer](r2d2.gif)
 
-You can build your own docker image to try out the editor:
+You can build your own docker image by running these commands:
 
+* git clone https://github.com/javahacks/urdf-designer.git
 * docker build -t urdf-designer .
 * docker run  -v workspace:/workspace -p  8080:80 urdf-designer
 * open your browser http://localhost:8080/#/workspace
