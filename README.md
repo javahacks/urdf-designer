@@ -9,7 +9,6 @@ Most interesting aspects the demo covers:
 * Generates real URDF XML models from simplified DSL sources
 
 ![URDF Designer](kuka-demo.gif)
-![URDF Designer](r2d2.gif)
 
 You can build your own docker image by running these commands:
 
