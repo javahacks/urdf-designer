@@ -6,7 +6,8 @@ import { bindViewContribution, FrontendApplicationContribution, WidgetFactory } 
 import { UrdfPreviewWidget } from "./preview/urdf-preview-widget";
 import { TabBarToolbarContribution } from '@theia/core/lib/browser/shell/tab-bar-toolbar';
 import { MonacoOutlineContribution } from '@theia/monaco/lib/browser/monaco-outline-contribution';
-import { UrdfOutlineContribution, OutlineInformationChangedPublisher } from './preview/outline-view-contribution';
+import { UrdfOutlineContribution} from './preview/outline-view-contribution';
+import { SelectedLinkPublisher } from './preview/urdf-selection-publisher';
 
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -20,7 +21,7 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
         createWidget: () => ctx.container.get<UrdfPreviewWidget>(UrdfPreviewWidget)
     })).inSingletonScope();
     rebind(MonacoOutlineContribution).to(UrdfOutlineContribution).inSingletonScope();
-    bind(OutlineInformationChangedPublisher).to(OutlineInformationChangedPublisher).inSingletonScope();
+    bind(SelectedLinkPublisher).to(SelectedLinkPublisher).inSingletonScope();
 });
 
 

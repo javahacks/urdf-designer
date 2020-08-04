@@ -1,76 +1,18 @@
-import {  injectable,inject } from 'inversify';
+import { injectable } from 'inversify';
 import { MonacoOutlineContribution, MonacoOutlineSymbolInformationNode } from '@theia/monaco/lib/browser/monaco-outline-contribution';
-import {  OutlineSymbolInformationNode } from '@theia/outline-view/lib/browser/outline-view-widget'
+import URI from '@theia/core/lib/common/uri';
 import DocumentSymbol = monaco.languages.DocumentSymbol;
 import SymbolKind = monaco.languages.SymbolKind;
-import URI from '@theia/core/lib/common/uri';
-import { Range,EditorOpenerOptions} from '@theia/editor/lib/browser';
-import { Emitter, Event } from '@theia/core';
-import { FrontendApplication } from '@theia/core/lib/browser';
-import debounce = require('lodash.debounce');
-
-@injectable()
-export class OutlineInformationChangedPublisher {
-    private readonly onDidChangeOutlineEmitter = new Emitter<OutlineSymbolInformationNode[]>();
-
-    get onDidChangeOutline(): Event<OutlineSymbolInformationNode[]> {
-        return this.onDidChangeOutlineEmitter.event;
-    }
-
-    fire(roots: OutlineSymbolInformationNode[]) {
-        this.onDidChangeOutlineEmitter.fire(roots);
-    } 
-
-}
 
 @injectable()
 export class UrdfOutlineContribution extends MonacoOutlineContribution {
 
-    @inject(OutlineInformationChangedPublisher) publisher:OutlineInformationChangedPublisher;
-
-    /**
-     * The outline information should be published even when outline view is noz visible
-     * in order to synchronize preview and text editor.
-     */
-    onStart(app: FrontendApplication): void {
-        this.toDisposeOnClose.push(this.toDisposeOnEditor);                
-        this.toDisposeOnClose.push(this.editorManager.onCurrentEditorChanged(
-            debounce(() => this.handleCurrentEditorChanged(), 50)
-        ));
-        this.handleCurrentEditorChanged();
-
-        this.outlineViewService.onDidSelect(async node => {        
-            if (MonacoOutlineSymbolInformationNode.is(node) && node.parent) {
-                const options: EditorOpenerOptions = {
-                    mode: 'reveal',
-                    selection: node.range
-                };
-                await this.selectInEditor(node, options);
-            }
-        });
-        this.outlineViewService.onDidOpen(async node => {
-            if (MonacoOutlineSymbolInformationNode.is(node)) {
-                const options: EditorOpenerOptions = {
-                    selection: {
-                        start: node.range.start
-                    }
-                };
-                await this.selectInEditor(node, options);
-            }
-        });
-    }
-    
-
-
-    protected async updateOutline(editorSelection?: Range): Promise<void> {        
-        super.updateOutline(editorSelection);        
-        this.publisher.fire(this.roots||[]);                
-    }
-
     protected createNodes(uri: URI, symbols: DocumentSymbol[]): MonacoOutlineSymbolInformationNode[] {
         if (!uri.displayName.endsWith("urdf")) {
             return super.createNodes(uri, symbols);
-        }        
+        }
+
+        //flatten symbols tree 
         if (symbols.length == 1 && symbols[0].children) {
             return symbols[0].children?.
                 map(symbol => this.mapSymbol(symbol, uri))
@@ -86,7 +28,7 @@ export class UrdfOutlineContribution extends MonacoOutlineContribution {
     }
 
     private createSymbolNode(uri: URI, id: string, name: string, symbolKind: SymbolKind, symbol: DocumentSymbol): MonacoOutlineSymbolInformationNode {
-        const node: MonacoOutlineSymbolInformationNode = {            
+        const node: MonacoOutlineSymbolInformationNode = {
             uri: uri,
             id: id,
             iconClass: SymbolKind[symbolKind].toString().toLowerCase(),
@@ -101,15 +43,15 @@ export class UrdfOutlineContribution extends MonacoOutlineContribution {
         return node;
     }
 
-    private getIconClass(type: string): SymbolKind {         
+    private getIconClass(type: string): SymbolKind {
         if (type === 'material') {
-             return SymbolKind.Variable;
+            return SymbolKind.Variable;
         }
         if (type === 'link') {
             return SymbolKind.Object;
         }
-        return SymbolKind.File;        
+        return SymbolKind.File;
     }
-  
+
 }
 
