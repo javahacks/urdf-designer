@@ -4,7 +4,7 @@ import { Command, CommandRegistry } from '@theia/core/lib/common/command';
 import { Workspace } from '@theia/languages/lib/browser';
 import { EditorManager } from '@theia/editor/lib/browser';
 import { UrdfPreviewWidget } from "./urdf-preview-widget";
-import { DisposableCollection, SelectionService } from '@theia/core';
+import { DisposableCollection, SelectionService, ContributionProvider } from '@theia/core';
 import { RobotDescription } from './UrdfModel';
 import { TabBarToolbarRegistry, TabBarToolbarContribution } from '@theia/core/lib/browser/shell/tab-bar-toolbar';
 import { SelectedLinkPublisher, LinkSelection } from './urdf-selection-publisher';
@@ -43,22 +43,22 @@ export class UrdfIdeContribution extends AbstractViewContribution<UrdfPreviewWid
     }
 
     registerCommands(commands: CommandRegistry): void {
-        commands.registerCommand(UrdfIdeCommand, {
+                
+    commands.registerCommand(UrdfIdeCommand, {
             execute: () => super.openView({ activate: true, reveal: true })
         });
         commands.registerCommand(PreviewCommands.RESET_VIEW, {
             isEnabled: widget => widget instanceof UrdfPreviewWidget,
             isVisible: widget => widget instanceof UrdfPreviewWidget,
             execute: () => this.resolvePreviewWIdget()?.resetView()
-        });
+        });        
     }
 
 
     private updateSelectedNodes(selection: any) {
         if (selection instanceof LinkSelection) {
             const linkSelection = selection as LinkSelection;
-            this.resolvePreviewWIdget()?.setSelection(linkSelection.linkIds);
-            console.log(linkSelection.linkIds.length);
+            this.resolvePreviewWIdget()?.setSelection(linkSelection.linkIds);            
         }
     }
 
@@ -84,13 +84,12 @@ export class UrdfIdeContribution extends AbstractViewContribution<UrdfPreviewWid
     }
 
     registerToolbarItems(toolbar: TabBarToolbarRegistry): void {
-
         toolbar.registerItem({
             id: PreviewCommands.RESET_VIEW.id,
             command: PreviewCommands.RESET_VIEW.id,
             tooltip: 'Reset Camera',
             priority: 0
-        });
+        });                
     }
 }
 
@@ -101,5 +100,14 @@ export namespace PreviewCommands {
         iconClass: 'fa fa-crosshairs'
     };
 
+    /**
+     * Toggle feature not yet implemented https://github.com/eclipse-theia/theia/issues/8312
+     */
+    export const LINK_WITH_EDITOR: Command = {
+        id: 'preview.link.editor',
+        iconClass: 'fa fa-crosshairs'        
+    };
+
 }
+
 
