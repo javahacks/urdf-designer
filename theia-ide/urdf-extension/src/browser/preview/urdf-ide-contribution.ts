@@ -4,7 +4,7 @@ import { Command, CommandRegistry } from '@theia/core/lib/common/command';
 import { Workspace } from '@theia/languages/lib/browser';
 import { EditorManager } from '@theia/editor/lib/browser';
 import { UrdfPreviewWidget } from "./urdf-preview-widget";
-import { DisposableCollection, SelectionService, ContributionProvider } from '@theia/core';
+import { DisposableCollection, SelectionService } from '@theia/core';
 import { RobotDescription } from './UrdfModel';
 import { TabBarToolbarRegistry, TabBarToolbarContribution } from '@theia/core/lib/browser/shell/tab-bar-toolbar';
 import { SelectedLinkPublisher, LinkSelection } from './urdf-selection-publisher';
