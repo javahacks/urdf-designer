@@ -42,7 +42,7 @@ export function registerDSL() {
         ],
 
         typeKeywords: [
-            'robot', 'materials', 'joints','links','link','color','texture','box','cylinder','sphere','mesh','revolute','fixed','prismatic'
+            'robot', 'materials', 'joints','links','link','color','texture','box','cylinder','sphere','mesh','revolute','fixed','prismatic','continuous'
         ],
 
         operators: [
