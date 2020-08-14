@@ -11,14 +11,13 @@ RobotType returns RobotType:
 	'}';
 
 Origin returns Pose:
-	'xyz' '=' xyzVector=Vector3 ('rpy' '=' rpyVector=Vector3)?;
+	'xyz' '=' xyzVector=Vector3 & ('rpy' '=' rpyVector=Vector3)?;
 
 Axis returns Axis:
 	'axis-xyz' '=' xyzVector=Vector3;
 
 Limit returns Limit:
-	'lower-limit' '=' lower=DOUBLE
-	'upper-limit' '=' upper=DOUBLE;
+	'lower-limit' '=' lower=DOUBLE & 'upper-limit' '=' upper=DOUBLE;
 
 InlineMaterial returns Material:
 	'material' '=' materialRef=[MaterialGlobal];
@@ -71,10 +70,10 @@ Box returns Box:
 	dimension=BoxDimension;
 
 BoxDimension returns Vector3:
-	'length' '=' a=DOUBLE 'width' '=' b=DOUBLE 'height' '=' c=DOUBLE;
+	'length' '=' a=DOUBLE & 'width' '=' b=DOUBLE & 'height' '=' c=DOUBLE;
 
 Cylinder returns Cylinder:
-	'length' '=' length=DOUBLE 'radius' '=' radius=DOUBLE;
+	'length' '=' length=DOUBLE & 'radius' '=' radius=DOUBLE;
 
 Sphere returns Sphere:
 	'radius' '=' radius=DOUBLE;
@@ -95,29 +94,24 @@ Color returns Color:
 	'rgba' '=' color=Vector4;
 
 FixedJoint returns Joint:
-	{Joint} type="fixed" name=ID parent=Parent child=Child ('{'
-	origin=Origin?
+	{Joint} type="fixed" name=ID (parent=Parent & child=Child) ('{'
+		origin=Origin?
 	'}')?;
 
 RevoluteJoint returns Joint:
-	{Joint} type="revolute" name=ID parent=Parent child=Child ('{'
-	origin=Origin?
-	axis=Axis?
-	limit=Limit?
+	{Joint} type="revolute" name=ID (parent=Parent & child=Child) ('{'
+		origin=Origin?  axis=Axis?  limit=Limit?
 	'}')?;
 
 ContinousJoint returns Joint:
-	{Joint} type="continuous" name=ID parent=Parent child=Child ('{'
-	origin=Origin?
-	axis=Axis?
+	{Joint} type="continuous" name=ID (parent=Parent & child=Child) ('{'
+		origin=Origin?  axis=Axis?
 	'}')?;
 
 PrismaticJoint returns Joint:
-	{Joint} type="prismatic" name=ID parent=Parent child=Child ('{'
-	origin=Origin?
-	axis=Axis?
-	limit=Limit?
-	'}');
+	{Joint} type="prismatic" name=ID (parent=Parent & child=Child) ('{'
+		origin=Origin?  axis=Axis?  limit=Limit?
+	'}')?;
 
 Parent:
 	'parent-name' '=' linkRef=[Link];

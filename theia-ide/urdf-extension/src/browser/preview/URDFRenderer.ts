@@ -195,7 +195,6 @@ export class URDFRenderer {
 
 
   private addControlForRevoluteJoint(joint: JointInfo, transform: TransformNode) {
-
     if (joint.upperLimit == 0 && joint.lowerLimit == 0) {
       return
     }
