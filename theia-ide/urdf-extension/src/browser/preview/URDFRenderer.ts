@@ -159,8 +159,11 @@ export class URDFRenderer {
 
   private setupBaseProperties(mesh: AbstractMesh, model: BaseModel) {
     mesh.position = new BABYLON.Vector3(model.x, model.y, model.z);
-    mesh.rotation = new BABYLON.Vector3(model.roll, model.pitch, model.yaw);
-    mesh.material = this.idMaterialMap.get(model.materialId)!.clone(mesh.name + "-material");
+    mesh.rotation = new BABYLON.Vector3(model.roll, model.pitch, model.yaw);    
+    const material= this.idMaterialMap.get(model.materialId);
+    if(material){
+      mesh.material = material.clone(mesh.name + "-material");
+    }
   }
 
   private connectMeshes(robot: RobotDescription) {
