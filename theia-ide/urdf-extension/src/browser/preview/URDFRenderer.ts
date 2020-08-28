@@ -59,15 +59,14 @@ export class URDFRenderer {
     });
   }
 
-  public resetView() {
-    const camera = this.scene.getCameraByID("camera") as ArcRotateCamera;
-    camera.alpha = 0;
-    camera.beta = Math.PI / 4;
-    camera.setTarget(BABYLON.Vector3.Zero());
+  public resetView() {    
+      const camera = this.scene.getCameraByID("camera") as ArcRotateCamera;
+      camera.alpha = 0;
+      camera.beta = Math.PI / 4;
+      camera.setTarget(BABYLON.Vector3.Zero());    
   }
 
-  public initRobotModel(robot: RobotDescription) {    
-    this.resetModel();
+  public initRobotModel(robot: RobotDescription) {      
     this.setupMaterials(robot);
     this.setupBoxes(robot);
     this.setupCylinders(robot);
@@ -76,10 +75,10 @@ export class URDFRenderer {
     this.idMaterialMap.forEach(material => material.dispose());
   }
 
-  public resetModel() {    
+  public dispose() {    
     this.scene.meshes.forEach(mesh => { mesh.material?.dispose(); mesh.dispose(); })    
-    this.idMeshMap.clear
-    this.idMaterialMap.clear
+    this.idMeshMap.clear()
+    this.idMaterialMap.clear()
     this.menuPanel.clearControls()
   }
 

@@ -63,6 +63,7 @@ export class UrdfIdeContribution extends AbstractViewContribution<UrdfPreviewWid
     }
 
     private updateEditor() {        
+        this.resolvePreviewWIdget()?.dispose();
         if (this.editorManager.currentEditor) {
             const uri = this.editorManager.currentEditor.getResourceUri()!.toString();
             this.fetchAndSetRobotModel(uri)

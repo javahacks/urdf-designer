@@ -38,6 +38,10 @@ export class UrdfPreviewWidget extends ReactWidget {
         this.renderer?.resetView();
     }
 
+    dispose() {
+        this.renderer?.dispose();
+    }
+
     setSelection(ids: string[]) {
         this.renderer?.highlightMeshes(ids);
     }
