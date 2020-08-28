@@ -14,6 +14,9 @@ import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Prepared origibal {@link RobotType} model so that it can easily be consumed by the renderer
+ */
 @Service
 public class ModelConverter {
     public static final String ASSETS_BASE_URL = "/urdf/asset?fileName=";
@@ -33,7 +36,6 @@ public class ModelConverter {
         setAssetUrls(robotDescription, Paths.get(fileName));
         return robotDescription;
     }
-
 
     private void fillMeshes(final RobotType model, final RobotDescription robotDescription) {
         if (model.getLink() == null) {
