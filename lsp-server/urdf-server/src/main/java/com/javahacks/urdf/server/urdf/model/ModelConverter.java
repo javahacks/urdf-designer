@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class ModelConverter {
@@ -37,18 +39,21 @@ public class ModelConverter {
         if (model.getLink() == null) {
             return;
         }
-        for (final Link link : model.getLink()) {
-            for (final Visual visual : link.getVisual()) {
-                handleVisual(robotDescription, link, visual);
-            }
+        final Set<String> meshIds = new HashSet<>();
+        model.getLink().stream()
+                .filter(link -> link.getName() != null)
+                .filter(link -> meshIds.add(link.getName()))
+                .forEach(link -> processVisuals(robotDescription, link));
+
+    }
+
+    private void processVisuals(final RobotDescription robotDescription, final Link link) {
+        for (final Visual visual : link.getVisual()) {
+            handleVisual(robotDescription, link, visual);
         }
     }
 
     private void handleVisual(final RobotDescription robotDescription, final Link link, final Visual visual) {
-        if (link.getName() == null) {
-            return;
-        }
-
         if (visual.getGeometry().getBox() != null) {
             final BoxMesh mesh = createBoxMesh(link, visual);
             robotDescription.getBoxes().add(mesh);
@@ -159,16 +164,22 @@ public class ModelConverter {
 
 
     private void fillMaterials(final RobotType model, final RobotDescription robotDescription) {
-        for (final MaterialGlobal materialGlobal : model.getMaterial()) {
-            if (materialGlobal.getColor() != null && materialGlobal.getName() != null) {
-                final float[] colors = stringToFloatArray(materialGlobal.getColor().getRgba(), 4);
-                final ColorMaterial material = new ColorMaterial(materialGlobal.getName(), colors[0], colors[1], colors[2], colors[3]);
-                robotDescription.getColors().add(material);
-            }
-            if (materialGlobal.getTexture() != null) {
-                final TextureMaterial material = new TextureMaterial(materialGlobal.getName(), materialGlobal.getTexture().getFilename());
-                robotDescription.getTextures().add(material);
-            }
+        final Set<String> materialIds = new HashSet<>();
+        model.getMaterial().stream()
+                .filter(materialGlobal -> materialGlobal.getName() != null)
+                .filter(materialGlobal -> materialIds.add(materialGlobal.getName()))
+                .forEach(materialGlobal -> fillMaterial(robotDescription, materialGlobal));
+    }
+
+    private void fillMaterial(final RobotDescription robotDescription, final MaterialGlobal materialGlobal) {
+        if (materialGlobal.getColor() != null) {
+            final float[] colors = stringToFloatArray(materialGlobal.getColor().getRgba(), 4);
+            final ColorMaterial material = new ColorMaterial(materialGlobal.getName(), colors[0], colors[1], colors[2], colors[3]);
+            robotDescription.getColors().add(material);
+        }
+        if (materialGlobal.getTexture() != null) {
+            final TextureMaterial material = new TextureMaterial(materialGlobal.getName(), materialGlobal.getTexture().getFilename());
+            robotDescription.getTextures().add(material);
         }
     }
 

@@ -50,11 +50,7 @@ export class URDFRenderer {
     this.scene?.getEngine().resize();
   }
 
-  public resetModel() {
-    this.idMeshMap.forEach(mesh => { mesh.material?.dispose(); mesh.dispose(); });
-    this.menuPanel.clearControls();
-  }
-
+ 
   highlightMeshes(ids: string[]) {
     this.idMeshMap.forEach((mesh: AbstractMesh, id: string) => {
       if (mesh.material) {
@@ -70,7 +66,8 @@ export class URDFRenderer {
     camera.setTarget(BABYLON.Vector3.Zero());
   }
 
-  public initRobotModel(robot: RobotDescription) {
+  public initRobotModel(robot: RobotDescription) {    
+    this.resetModel();
     this.setupMaterials(robot);
     this.setupBoxes(robot);
     this.setupCylinders(robot);
@@ -78,6 +75,14 @@ export class URDFRenderer {
     this.setupMeshes(robot);
     this.idMaterialMap.forEach(material => material.dispose());
   }
+
+  public resetModel() {    
+    this.scene.meshes.forEach(mesh => { mesh.material?.dispose(); mesh.dispose(); })    
+    this.idMeshMap.clear
+    this.idMaterialMap.clear
+    this.menuPanel.clearControls()
+  }
+
 
   private setupCylinders(robot: RobotDescription) {
     for (const cylinder of robot.cylinders) {
